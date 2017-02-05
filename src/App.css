@@ -1,0 +1,41 @@
+html {
+  background: linear-gradient(to bottom right, #9C27B0, #AA00FF) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.app {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.contents {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}
+
+.busines-name {
+  background-color: #222;
+  height: 150px;
+  padding: 60px;
+  color: white;
+}
+
+h2 {
+  color: #FFF;
+  font-family: 'Pacifico', cursive;
+  font-size: 72px;
+  margin: 0px;
+  padding-bottom: 40px;
+}
+
+@media (max-width: 500px) {
+  h2 {
+    font-size: 36px;
+  }
+}
