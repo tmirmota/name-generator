@@ -1,4 +1,4 @@
-const companies = [
+const Companies = [
   {
     'id': 1,
     'name': 'Amazon'
@@ -41,4 +41,4 @@ const companies = [
   }
 ];
 
-export default companies;
+export default Companies;
