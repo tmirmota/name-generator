@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import Companies from '../data/Companies';
+import Companies from '../data/companies';
 
 const style = {
   margin: 12,
