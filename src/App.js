@@ -12,23 +12,27 @@ const style = {
   margin: 12,
 };
 
-var randomNumber = 2;
+var select = [];
 
 class App extends Component {
-  constructor() {
-    super();
-    this.handleClick = handleClick.bind(this);
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = null;
   }
   handleClick() {
-    var randomNumber = Math.floor(Math.random() * 10) + 1;
+    var randomNumber = Math.floor(Math.random() * 9);
+    this.assignCompany(randomNumber);
   }
-  render() {
-    var select = [];
+  assignCompany(id) {
     this.props.companies.forEach(function(company) {
-      if(company.id === randomNumber) {
+      if (company.id === id) {
         select = company;
       }
     });
+  }
+  render() {
+    this.assignCompany(1);
     return (
       <MuiThemeProvider>
         <div className="app">
@@ -37,7 +41,7 @@ class App extends Component {
               <CompanyProfile company={select} />
             </div>
             <div className="main-button">
-              <RaisedButton label="New Name" style={style} onClick={() => this.handleClick()} />
+              <RaisedButton label="New Name" secondary={true} style={style} onClick={() => this.handleClick()} />
             </div>
           </div>
         </div>

@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import Companies from './data/Companies';
+import companies from './data/companies';
 
 ReactDOM.render(
-  <App companies={Companies} />,
+  <App companies={companies} />,
   document.getElementById('root')
 );
