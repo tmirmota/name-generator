@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-
 import CompanyProfile from './components/CompanyProfile';
 
 const style = {
@@ -38,18 +33,16 @@ class App extends Component {
   }
   render() {
     return (
-      <MuiThemeProvider>
-        <div className="app">
-          <div className="contents">
-            <div className="business-profile">
-              <CompanyProfile company={this.state} />
-            </div>
-            <div className="main-button">
-              <RaisedButton label="New Name" secondary={true} style={style} onClick={() => this.handleClick()} />
-            </div>
+      <div className="app">
+        <div className="contents">
+          <div className="business-profile">
+            <CompanyProfile company={this.state} />
+          </div>
+          <div className="main-button">
+            <button label="New Name" secondary={true} style={style} onClick={() => this.handleClick()} />
           </div>
         </div>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }
