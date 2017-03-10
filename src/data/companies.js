@@ -1,7 +1,7 @@
 var Companies = [
   {
     'id': 1,
-    'name': 'Company Name'
+    'name': 'Amazon'
   },
   {
     'id': 2,
