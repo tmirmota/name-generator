@@ -46,7 +46,7 @@ class App extends Component {
               <CompanyProfile company={this.state} />
             </div>
             <div className="main-button">
-              <button label="New Name" secondary={true} style={style} onClick={() => this.handleClick()} />
+              <RaisedButton label="New Name" secondary={true} style={style} onClick={() => this.handleClick()} />
             </div>
           </div>
         </div>
