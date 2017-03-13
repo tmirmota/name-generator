@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 import CompanyProfile from './components/CompanyProfile';
 

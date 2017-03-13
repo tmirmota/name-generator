@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CompanyName from './CompanyName';
 
-export default class CompanyProfile extends Component {
+class CompanyProfile extends Component {
   render() {
     return (
       <div className="company-profile">
@@ -12,3 +12,5 @@ export default class CompanyProfile extends Component {
     );
   }
 }
+
+export default CompanyProfile;
