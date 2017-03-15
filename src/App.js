@@ -4,13 +4,18 @@ import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { Row } from 'react-foundation/lib/components/grid';
+import { Row, Column } from 'react-foundation/lib/components/grid';
 
 import CompanyProfile from './components/CompanyProfile';
 import Filter from './components/Filter';
 
-const style = {
-  margin: 12,
+const styles = {
+  button: {
+    margin: 12,
+  },
+  centered: {
+    margin: 'auto',
+  }
 };
 
 var selection = {
@@ -41,15 +46,21 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <Row>
+          <Row className="centered">
             <Row>
-              <CompanyProfile company={this.state} />
+              <Column small={3} centerOnSmall>
+                <CompanyProfile company={this.state} />
+              </Column>
             </Row>
             <Row>
-              <RaisedButton label="New Name" secondary={true} style={style} onClick={() => this.handleClick()} />
+              <Column small={3} centerOnSmall>
+                <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={() => this.handleClick()} />
+              </Column>
             </Row>
             <Row>
-              <Filter />
+              <Column large={8} centerOnLarge>
+                <Filter />
+              </Column>
             </Row>
           </Row>
         </div>

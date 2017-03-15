@@ -4,6 +4,8 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 
+import { Row, Column } from 'react-foundation/lib/components/grid';
+
 class FilterOptions extends Component {
   constructor(props) {
     super(props);
@@ -19,22 +21,24 @@ class FilterOptions extends Component {
   render() {
     return (
       <div>
-        <div>
-          <DropDownMenu value={this.state.include} onChange={this.includeChange}>
-            <MenuItem value={true} primaryText="Include" />
-            <MenuItem value={false} primaryText="Exclude" />
-          </DropDownMenu>
-        </div>
-        <div>
-          <DropDownMenu value={this.state.restrict} onChange={this.restrictChange}>
-            <MenuItem value={1} primaryText="Equal to (=)" />
-            <MenuItem value={2} primaryText="Contains" />
-            <MenuItem value={3} primaryText="Starts with" />
-          </DropDownMenu>
-        </div>
-        <div>
-          <TextField hintText="Example: 'Br'"/>
-        </div>
+        <Row>
+          <Column>
+            <DropDownMenu value={this.state.include} onChange={this.includeChange}>
+              <MenuItem value={true} primaryText="Include" />
+              <MenuItem value={false} primaryText="Exclude" />
+            </DropDownMenu>
+            <DropDownMenu value={this.state.restrict} onChange={this.restrictChange}>
+              <MenuItem value={1} primaryText="Equal to (=)" />
+              <MenuItem value={2} primaryText="Contains" />
+              <MenuItem value={3} primaryText="Starts with" />
+            </DropDownMenu>
+          </Column>
+        </Row>
+        <Row>
+          <Column>
+            <TextField hintText="Example: 'Br'"/>
+          </Column>
+        </Row>
       </div>
     );
   }
