@@ -4,6 +4,8 @@ import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import { Row } from 'react-foundation/lib/components/grid';
+
 import CompanyProfile from './components/CompanyProfile';
 import Filter from './components/Filter';
 
@@ -38,18 +40,18 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div className="app">
-          <div className="contents">
-            <div className="business-profile">
+        <div>
+          <Row>
+            <Row>
               <CompanyProfile company={this.state} />
-            </div>
-            <div className="main-button">
+            </Row>
+            <Row>
               <RaisedButton label="New Name" secondary={true} style={style} onClick={() => this.handleClick()} />
-            </div>
-          </div>
-          <div>
-            <Filter />
-          </div>
+            </Row>
+            <Row>
+              <Filter />
+            </Row>
+          </Row>
         </div>
       </MuiThemeProvider>
     );
