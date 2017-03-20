@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './css/App.css';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -46,7 +46,7 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <Row className="centered">
+          <Row className="text-center">
             <Row>
               <Column small={3} centerOnSmall>
                 <CompanyProfile company={this.state} />

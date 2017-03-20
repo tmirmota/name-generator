@@ -10,7 +10,7 @@ class Filter extends Component {
     return (
       <div>
         <Row>
-          <Column small={3} centerOnLarge>
+          <Column>
             <TextField floatingLabelText="Filter Name" />
             <FilterOptions />
           </Column>

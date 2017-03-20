@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
+import RaisedButton from'material-ui/RaisedButton';
+import FlatButton from'material-ui/FlatButton';
 
 import { Row, Column } from 'react-foundation/lib/components/grid';
 
@@ -22,7 +24,7 @@ class FilterOptions extends Component {
     return (
       <div>
         <Row>
-          <Column>
+          <Column className="text-left">
             <DropDownMenu value={this.state.include} onChange={this.includeChange}>
               <MenuItem value={true} primaryText="Include" />
               <MenuItem value={false} primaryText="Exclude" />
@@ -37,6 +39,12 @@ class FilterOptions extends Component {
         <Row>
           <Column>
             <TextField hintText="Example: 'Br'"/>
+          </Column>
+        </Row>
+        <Row>
+          <Column className="text-right">
+            <RaisedButton label="Save" />
+            <FlatButton label="Cancel" />
           </Column>
         </Row>
       </div>

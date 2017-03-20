@@ -2,8 +2,6 @@ html {
   background: linear-gradient(to bottom right, #9C27B0, #AA00FF) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
 }
 
 .app {
@@ -34,7 +32,15 @@ h2 {
   padding-bottom: 40px;
 }
 
-.centered {
+.text-center {
   margin: auto;
   text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
 }
