@@ -6,8 +6,6 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from'material-ui/RaisedButton';
 import FlatButton from'material-ui/FlatButton';
 
-import { Row, Column } from 'react-foundation/lib/components/grid';
-
 class FilterOptions extends Component {
   constructor(props) {
     super(props);
@@ -23,30 +21,18 @@ class FilterOptions extends Component {
   render() {
     return (
       <div>
-        <Row>
-          <Column className="text-left">
-            <DropDownMenu value={this.state.include} onChange={this.includeChange}>
-              <MenuItem value={true} primaryText="Include" />
-              <MenuItem value={false} primaryText="Exclude" />
-            </DropDownMenu>
-            <DropDownMenu value={this.state.restrict} onChange={this.restrictChange}>
-              <MenuItem value={1} primaryText="Equal to (=)" />
-              <MenuItem value={2} primaryText="Contains" />
-              <MenuItem value={3} primaryText="Starts with" />
-            </DropDownMenu>
-          </Column>
-        </Row>
-        <Row>
-          <Column>
-            <TextField hintText="Example: 'Br'"/>
-          </Column>
-        </Row>
-        <Row>
-          <Column className="text-right">
-            <RaisedButton label="Save" />
-            <FlatButton label="Cancel" />
-          </Column>
-        </Row>
+        <DropDownMenu value={this.state.include} onChange={this.includeChange}>
+          <MenuItem value={true} primaryText="Include" />
+          <MenuItem value={false} primaryText="Exclude" />
+        </DropDownMenu>
+        <DropDownMenu value={this.state.restrict} onChange={this.restrictChange}>
+          <MenuItem value={1} primaryText="Equal to (=)" />
+          <MenuItem value={2} primaryText="Contains" />
+          <MenuItem value={3} primaryText="Starts with" />
+        </DropDownMenu>
+        <TextField hintText="Example: 'Br'"/>
+        <RaisedButton label="Save" />
+        <FlatButton label="Cancel" />
       </div>
     );
   }

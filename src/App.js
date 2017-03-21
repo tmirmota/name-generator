@@ -4,8 +4,6 @@ import './css/App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { Row, Column } from 'react-foundation/lib/components/grid';
-
 import CompanyProfile from './components/CompanyProfile';
 import Filter from './components/Filter';
 
@@ -45,24 +43,16 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div>
-          <Row className="text-center">
-            <Row>
-              <Column small={3} centerOnSmall>
-                <CompanyProfile company={this.state} />
-              </Column>
-            </Row>
-            <Row>
-              <Column small={3} centerOnSmall>
-                <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={() => this.handleClick()} />
-              </Column>
-            </Row>
-            <Row>
-              <Column large={8} centerOnLarge>
-                <Filter />
-              </Column>
-            </Row>
-          </Row>
+        <div className="wrapper text-center">
+          <div className="heading">
+            <CompanyProfile company={this.state} />
+          </div>
+          <div className="new-name">
+            <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={() => this.handleClick()} />
+          </div>
+          <div className="filter">
+            <Filter />
+          </div>
         </div>
       </MuiThemeProvider>
     );
