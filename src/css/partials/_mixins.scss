@@ -1,0 +1,20 @@
+// GRID SYSTEM
+
+// Grid Containers
+@mixin container($rows, $columns) {
+ display: grid;
+ grid-template-rows: $rows+fr;
+ grid-template-columns: $columns+fr;
+}
+
+// Grid Rows
+@mixin rows($start, $end) {
+  grid-row-start: $start;
+  grid-row-end: $end;
+}
+
+// Grid Columns
+@mixin columns($start, $end) {
+  grid-column-start: $start;
+  grid-column-end: $end;
+}
