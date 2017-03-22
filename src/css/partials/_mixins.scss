@@ -1,16 +1,10 @@
 // GRID SYSTEM
 
 // Grid Containers
-@mixin container($rows, $columns) {
+@mixin container($columns) {
  display: grid;
- grid-template-rows: $rows+fr;
- grid-template-columns: $columns+fr;
-}
-
-// Grid Rows
-@mixin rows($start, $end) {
-  grid-row-start: $start;
-  grid-row-end: $end;
+ grid-template-columns: repeat($columns, 1fr);
+ grid-template-rows: auto;
 }
 
 // Grid Columns

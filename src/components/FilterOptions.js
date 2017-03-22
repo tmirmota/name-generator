@@ -31,8 +31,10 @@ class FilterOptions extends Component {
           <MenuItem value={3} primaryText="Starts with" />
         </DropDownMenu>
         <TextField hintText="Example: 'Br'"/>
-        <RaisedButton label="Save" />
-        <FlatButton label="Cancel" />
+        <div>
+          <RaisedButton label="Save" />
+          <FlatButton label="Cancel" />
+        </div>
       </div>
     );
   }

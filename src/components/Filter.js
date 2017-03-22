@@ -6,11 +6,11 @@ import TextField from 'material-ui/TextField';
 class Filter extends Component {
   render() {
     return (
-      <div>
-        <div className="wrapper-2 text-left">
+      <div className="grid-rows-4-columns-3 text-left">
+        <div className="row1 columns1-3">
           <TextField floatingLabelText="Filter Name" />
-          <FilterOptions />
         </div>
+        <FilterOptions />
       </div>
     );
   }

@@ -43,14 +43,14 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div className="wrapper text-center">
-          <div className="heading">
+        <div className="grid-rows-6-columns-6 text-center">
+          <div className="row1-2 column2-5">
             <CompanyProfile company={this.state} />
           </div>
-          <div className="new-name">
+          <div className="row3 column3-4">
             <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={() => this.handleClick()} />
           </div>
-          <div className="filter">
+          <div className="row4 column2-5">
             <Filter />
           </div>
         </div>

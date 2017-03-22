@@ -1,24 +1,9 @@
-// Grid Layouts
-@for $rows from 1 through $grid-rows {
-  @for $columns from 1 through $grid-columns {
-    .grid-rows-#{$rows}-columns-#{$columns} {
-      @include container($rows,$columns);
-    }
-  }
-}
 
-// Grid rows
-@for $row from 1 through $grid-rows {
-  @for $end from 1 through $grid-rows {
-    @if $row < $end {
-      .row#{$row}-#{$end} {
-        @include rows($row, $end);
-      }
-    } @else if $row == $end {
-      .row#{$row} {
-        @include rows($row, $row);
-      }
-    }
+
+// Grid Layouts
+@for $columns from 1 through $grid-columns {
+  .grid-#{$columns} {
+    @include container($columns);
   }
 }
 
