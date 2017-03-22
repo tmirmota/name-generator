@@ -21,16 +21,20 @@ class FilterOptions extends Component {
   render() {
     return (
       <div>
-        <DropDownMenu value={this.state.include} onChange={this.includeChange}>
-          <MenuItem value={true} primaryText="Include" />
-          <MenuItem value={false} primaryText="Exclude" />
-        </DropDownMenu>
-        <DropDownMenu value={this.state.restrict} onChange={this.restrictChange}>
-          <MenuItem value={1} primaryText="Equal to (=)" />
-          <MenuItem value={2} primaryText="Contains" />
-          <MenuItem value={3} primaryText="Starts with" />
-        </DropDownMenu>
-        <TextField hintText="Example: 'Br'"/>
+        <div>
+          <DropDownMenu value={this.state.include} onChange={this.includeChange}>
+            <MenuItem value={true} primaryText="Include" />
+            <MenuItem value={false} primaryText="Exclude" />
+          </DropDownMenu>
+          <DropDownMenu value={this.state.restrict} onChange={this.restrictChange}>
+            <MenuItem value={1} primaryText="Equal to (=)" />
+            <MenuItem value={2} primaryText="Contains" />
+            <MenuItem value={3} primaryText="Starts with" />
+          </DropDownMenu>
+        </div>
+        <div>
+          <TextField hintText="Example: 'Br'"/>
+        </div>
         <div>
           <RaisedButton label="Save" />
           <FlatButton label="Cancel" />
