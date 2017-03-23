@@ -3,16 +3,14 @@
 // Grid Containers
 @mixin container($columns) {
  display: grid;
-
  grid-template-columns: repeat($columns, 1fr);
- grid-template-rows: auto;
+ grid-auto-rows: minmax(50px, auto);
 }
 
 // Grid Rows
 @mixin rows($start, $end) {
   grid-row-start: $start;
   grid-row-end: $end;
-
 }
 
 // Grid Columns

@@ -3,6 +3,8 @@ import './css/App.css';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import CompanyProfile from './components/CompanyProfile';
 import Filter from './components/Filter';
@@ -26,7 +28,12 @@ class App extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.assignCompany = this.assignCompany.bind(this);
-    this.state = selection;
+    this.onClick = this.onClick.bind(this);
+    this.state = {
+      id: 0,
+      name: "Press New Name",
+      showFilter: false
+    };
   }
   handleClick() {
     var randomNumber = Math.floor(Math.random() * 9);
@@ -40,18 +47,30 @@ class App extends Component {
       }
     });
   }
+  onClick() {
+    if (this.state.showFilter == false) {
+      this.setState({ showFilter: true })
+    } else {
+      this.setState({ showFilter: false })
+    }
+  }
   render() {
     return (
       <MuiThemeProvider>
-        <div className="grid-6 text-center blue">
-          <div className="column1-6 red">
+        <div className="grid-6 text-center">
+          <div className="row1 column1-6">
             <CompanyProfile company={this.state} />
           </div>
-          <div className="column3-4 yellow">
+          <div className="row2 column3-4">
             <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={() => this.handleClick()} />
           </div>
-          <div className="column2-5">
-            <Filter />
+          <div className="row3 column1">
+            <FloatingActionButton disabled={this.state.showFilter} onClick={() => this.onClick()}>
+              <ContentAdd />
+            </FloatingActionButton>
+          </div>
+          <div className="row3 column2-5 text-left" display="none">
+            { this.state.showFilter ? <Filter onClick={() => this.props.onClick()} /> : null }
           </div>
         </div>
       </MuiThemeProvider>

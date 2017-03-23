@@ -11,7 +11,7 @@ class FilterOptions extends Component {
     super(props);
     this.state = {
       include: true,
-      restrict: 1
+      restrict: 1,
     };
   }
 
@@ -20,8 +20,8 @@ class FilterOptions extends Component {
 
   render() {
     return (
-      <div>
-        <div>
+      <div className="grid-2">
+        <div className="row1 column1">
           <DropDownMenu value={this.state.include} onChange={this.includeChange}>
             <MenuItem value={true} primaryText="Include" />
             <MenuItem value={false} primaryText="Exclude" />
@@ -32,12 +32,12 @@ class FilterOptions extends Component {
             <MenuItem value={3} primaryText="Starts with" />
           </DropDownMenu>
         </div>
-        <div>
+        <div className="row1 column2">
           <TextField hintText="Example: 'Br'"/>
         </div>
-        <div>
+        <div className="row3 column1-2 text-center">
           <RaisedButton label="Save" />
-          <FlatButton label="Cancel" />
+          <FlatButton label="Cancel" onClick={() => this.props.onClick()} />
         </div>
       </div>
     );
