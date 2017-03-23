@@ -60,12 +60,12 @@ class App extends Component {
           <div className="row2 column3-4">
             <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={() => this.handleClick()} />
           </div>
-          <div className="row3 column1">
+          <div className="row4 column1-6">
             <FloatingActionButton disabled={this.state.showFilter} onClick={() => this.onClick()}>
               <ContentAdd />
             </FloatingActionButton>
           </div>
-          <div className="row3 column2-5 text-left" display="none">
+          <div className="row5 column1-6" display="none">
             { this.state.showFilter ? <Filter onClick={() => this.onClick()} /> : null }
           </div>
         </div>
