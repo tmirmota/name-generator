@@ -48,11 +48,7 @@ class App extends Component {
     });
   }
   onClick() {
-    if (this.state.showFilter == false) {
-      this.setState({ showFilter: true })
-    } else {
-      this.setState({ showFilter: false })
-    }
+    this.setState({ showFilter: (this.state.showFilter ? false : true)})
   }
   render() {
     return (
@@ -70,7 +66,7 @@ class App extends Component {
             </FloatingActionButton>
           </div>
           <div className="row3 column2-5 text-left" display="none">
-            { this.state.showFilter ? <Filter onClick={() => this.props.onClick()} /> : null }
+            { this.state.showFilter ? <Filter onClick={() => this.onClick()} /> : null }
           </div>
         </div>
       </MuiThemeProvider>

@@ -36,7 +36,7 @@ class FilterOptions extends Component {
           <TextField hintText="Example: 'Br'"/>
         </div>
         <div className="row3 column1-2 text-center">
-          <RaisedButton label="Save" />
+          <RaisedButton label="Save" type="submit"/>
           <FlatButton label="Cancel" onClick={() => this.props.onClick()} />
         </div>
       </div>

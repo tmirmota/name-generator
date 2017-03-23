@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FilterOptions from './FilterOptions';
+import FilterList from './FilterList';
 
 import TextField from 'material-ui/TextField';
 
@@ -12,6 +13,9 @@ class Filter extends Component {
         </div>
         <div className="row2 column1">
           <FilterOptions onClick={() => this.props.onClick()} />
+        </div>
+        <div className="row3 column1">
+          <FilterList />
         </div>
       </div>
     );
