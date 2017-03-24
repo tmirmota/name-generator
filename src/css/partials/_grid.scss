@@ -7,21 +7,6 @@
   }
 }
 
-// Grid rows
-@for $row from 1 through $grid-rows {
-  @for $end from 1 through $grid-rows {
-    @if $row < $end {
-      .row#{$row}-#{$end} {
-        @include rows($row, $end);
-      }
-    } @else if $row == $end {
-      .row#{$row} {
-        @include rows($row, $row);
-      }
-    }
-  }
-}
-
 // Grid Columns
 @for $column from 1 through $grid-columns {
   @for $end from 1 through $grid-columns {

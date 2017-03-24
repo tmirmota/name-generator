@@ -11,10 +11,14 @@
 @mixin rows($start, $end) {
   grid-row-start: $start;
   grid-row-end: $end;
+  -ms-grid-row-span: $start;
+  -ms-grid-row-end-span: $start;
 }
 
 // Grid Columns
 @mixin columns($start, $end) {
   grid-column-start: $start;
   grid-column-end: $end+1;
+  -ms-grid-column: $start;
+  -ms-grid-column-span: $start;
 }

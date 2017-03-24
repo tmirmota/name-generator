@@ -9,8 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 class FilterForm extends Component {
   state = {
-    canSubmit: false,
-    data: []
+    canSubmit: false
   }
 
   enableButton = () => {
