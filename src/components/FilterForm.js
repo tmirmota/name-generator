@@ -41,8 +41,7 @@ class FilterForm extends Component {
             floatingLabelText="Filter Name" />
           <FormsySelect
             name="included"
-            required
-            menuItems={this.filterIncluded} >
+            required >
               <MenuItem value={true} primaryText="Included" />
               <MenuItem value={false} primaryText="Excluded" />
            </FormsySelect>
