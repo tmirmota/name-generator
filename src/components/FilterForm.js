@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 
 // Formsy
 import Formsy from 'formsy-react';
-import { FormsyText } from 'formsy-material-ui/lib';
+import { FormsyText, FormsySelect } from 'formsy-material-ui/lib';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
+import MenuItem from 'material-ui/MenuItem';
 
 class FilterForm extends Component {
   state = {
@@ -38,6 +39,13 @@ class FilterForm extends Component {
             name="filterName"
             required
             floatingLabelText="Filter Name" />
+          <FormsySelect
+            name="included"
+            required
+            menuItems={this.filterIncluded} >
+              <MenuItem value={true} primaryText="Included" />
+              <MenuItem value={false} primaryText="Excluded" />
+           </FormsySelect>
           <RaisedButton type="submit" label="submit" disabled={!this.state.canSubmit} />
       </Formsy.Form>
     )
