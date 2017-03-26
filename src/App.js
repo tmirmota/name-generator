@@ -7,7 +7,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import CompanyProfile from './components/CompanyProfile';
-import Filter from './components/Filter';
+import FilterForm from './components/FilterForm';
 import FiltersTable from './components/FiltersTable.jsx';
 
 const styles = {
@@ -67,10 +67,10 @@ class App extends Component {
             </FloatingActionButton>
           </div>
           <div className="row5 column1-6" display="none">
-            { this.state.showFilter ? <Filter onClick={() => this.onClick()} /> : null }
+            { this.state.showFilter ? <FilterForm onClick={() => this.onClick()}  ref={(data) => { this.state.data = data; }} /> : null }
           </div>
           <div className="row6 column1-6">
-            <FiltersTable />
+            <FiltersTable data={this.props.FilterForm}/>
           </div>
         </div>
       </MuiThemeProvider>
