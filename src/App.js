@@ -8,7 +8,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import CompanyProfile from './components/CompanyProfile';
 import Filter from './components/Filter';
-import FiltersTable from './components/FiltersTable';
+import FiltersTable from './components/FiltersTable.jsx';
 
 const styles = {
   button: {
@@ -69,7 +69,7 @@ class App extends Component {
           <div className="row5 column1-6" display="none">
             { this.state.showFilter ? <Filter onClick={() => this.onClick()} /> : null }
           </div>
-          <div>
+          <div className="row6 column1-6">
             <FiltersTable />
           </div>
         </div>
