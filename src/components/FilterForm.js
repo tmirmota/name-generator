@@ -12,7 +12,8 @@ import MenuItem from 'material-ui/MenuItem';
 
 class FilterForm extends Component {
   state = {
-    canSubmit: false
+    canSubmit: false,
+    data: []
   }
 
   enableButton = () => {
@@ -26,8 +27,9 @@ class FilterForm extends Component {
     });
   }
 
-  submitForm = (data) => {
-    this.setState({data});
+  submitForm = (value) => {
+    this.state.data.push(value);
+    this.setState({data: this.state.data});
   }
 
   render() {
