@@ -8,6 +8,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import CompanyProfile from './components/CompanyProfile';
 import Filter from './components/Filter';
+import FiltersTable from './components/FiltersTable';
 
 const styles = {
   button: {
@@ -67,6 +68,9 @@ class App extends Component {
           </div>
           <div className="row5 column1-6" display="none">
             { this.state.showFilter ? <Filter onClick={() => this.onClick()} /> : null }
+          </div>
+          <div>
+            <FiltersTable />
           </div>
         </div>
       </MuiThemeProvider>

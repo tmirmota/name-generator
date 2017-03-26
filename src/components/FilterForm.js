@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import filters from '../data/filters';
 
 // Formsy
 import Formsy from 'formsy-react';

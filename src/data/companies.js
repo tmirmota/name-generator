@@ -1,4 +1,4 @@
-var Companies = [
+const Companies = [
   {
     'id': 1,
     'name': 'Amazon'
