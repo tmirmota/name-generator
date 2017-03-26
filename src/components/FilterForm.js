@@ -62,7 +62,7 @@ class FilterForm extends Component {
                 required
                 hintText="Example: value" />
               <RaisedButton type="submit" label="submit" disabled={!this.state.canSubmit} />
-            <FlatButton label="Cancel" />
+            <FlatButton label="Cancel" onClick={() => this.props.onClick()}/>
         </Formsy.Form>
       </div>
     )

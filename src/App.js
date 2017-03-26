@@ -67,10 +67,10 @@ class App extends Component {
             </FloatingActionButton>
           </div>
           <div className="row5 column1-6" display="none">
-            { this.state.showFilter ? <FilterForm onClick={() => this.onClick()}  ref={(data) => { this.state.data = data; }} /> : null }
+            { this.state.showFilter ? <FilterForm onClick={() => this.onClick()} ref={(filter) => { this.state.data = filter; }} /> : null }
           </div>
           <div className="row6 column1-6">
-            <FiltersTable data={this.props.FilterForm}/>
+            <FiltersTable data={this.filter}/>
           </div>
         </div>
       </MuiThemeProvider>
