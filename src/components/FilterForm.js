@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+// Components
+import FiltersTable from './FiltersTable';
+
 // Formsy
 import Formsy from 'formsy-react';
 import { FormsyText, FormsySelect } from 'formsy-material-ui/lib';
@@ -29,7 +32,6 @@ class FilterForm extends Component {
   submitForm = (value) => {
     this.state.data.push(value);
     this.setState({data: this.state.data});
-    console.log(value);
   }
 
   render() {
@@ -61,9 +63,12 @@ class FilterForm extends Component {
                 name="filterValue"
                 required
                 hintText="Example: value" />
-              <RaisedButton type="submit" label="submit" disabled={!this.state.canSubmit} />
+              <RaisedButton type="submit" label="submit" disabled={!this.state.canSubmit} onClick={() => this.props.onClick()} />
             <FlatButton label="Cancel" onClick={() => this.props.onClick()}/>
         </Formsy.Form>
+        <div>
+          <FiltersTable data={this.state.data} />
+        </div>
       </div>
     )
   }
