@@ -6,12 +6,12 @@ import { FormsyText, FormsySelect } from 'formsy-material-ui/lib';
 
 // material-ui
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 
 class FilterForm extends Component {
   state = {
-    canSubmit: false,
-    data: []
+    canSubmit: false
   }
 
   enableButton = () => {
@@ -43,9 +43,9 @@ class FilterForm extends Component {
             <FormsySelect
               name="included"
               required
-              value={true} >
-                <MenuItem value={true} primaryText="Included" />
-                <MenuItem value={false} primaryText="Excluded" />
+              hintText="Select a option" >
+                <MenuItem value={true} primaryText="Include" />
+                <MenuItem value={false} primaryText="Exclude" />
              </FormsySelect>
              <FormsySelect
                name="condition"
@@ -59,6 +59,7 @@ class FilterForm extends Component {
                 required
                 hintText="Example: value" />
             <RaisedButton type="submit" label="submit" disabled={!this.state.canSubmit} />
+            <FlatButton label="Cancel" />
         </Formsy.Form>
       </div>
     )
