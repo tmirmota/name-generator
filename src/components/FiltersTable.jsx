@@ -23,9 +23,9 @@ class FiltersTable extends Component {
             <TableRow key={data.id}>
               <TableRowColumn>{data.id}</TableRowColumn>
               <TableRowColumn>{data.filterName}</TableRowColumn>
-              <TableRowColumn>true</TableRowColumn>
-              <TableRowColumn>Starts with</TableRowColumn>
-              <TableRowColumn>Br</TableRowColumn>
+              <TableRowColumn>{data.included}</TableRowColumn>
+              <TableRowColumn>{data.condition}</TableRowColumn>
+              <TableRowColumn>{data.filterValue}</TableRowColumn>
             </TableRow>
           )}
         </TableBody>

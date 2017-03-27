@@ -18,6 +18,7 @@ class FilterForm extends Component {
   state = {
     canSubmit: false,
     showFilter: false,
+    showTable: false,
     data: []
   }
 
@@ -39,21 +40,21 @@ class FilterForm extends Component {
   submitForm = (value) => {
     value.id = this.state.data.length + 1;
     this.state.data.push(value);
-    this.setState({data: this.state.data});
+    this.setState({data: this.state.data, showTable: true});
     this.showFilter();
   }
 
   render() {
     return (
-      <div className="grid-3 text-left">
+      <div className="grid-5 text-left">
 
-        <div className="row1 column2 text-center">
+        <div className="row1 column3 text-center">
           <FloatingActionButton disabled={this.state.showFilter} onClick={() => this.showFilter()}>
             <ContentAdd />
           </FloatingActionButton>
         </div>
 
-        <div className="row2 column1-3">
+        <div className="column3 text-left">
           {this.state.showFilter ?
             <Formsy.Form
               onValid={this.enableButton}
@@ -67,8 +68,8 @@ class FilterForm extends Component {
                   name="included"
                   required
                   hintText="Select a option" >
-                    <MenuItem value={true} primaryText="Include" />
-                    <MenuItem value={false} primaryText="Exclude" />
+                    <MenuItem value={'Include'} primaryText="Include" />
+                    <MenuItem value={'Exclude'} primaryText="Exclude" />
                  </FormsySelect>
                  <FormsySelect
                    name="condition"
@@ -81,14 +82,16 @@ class FilterForm extends Component {
                     name="filterValue"
                     required
                     hintText="Example: value" />
-                  <RaisedButton type="submit" label="submit" disabled={!this.state.canSubmit} />
-                <FlatButton label="Cancel" onClick={() => this.showFilter()}/>
+                  <div>
+                    <RaisedButton type="submit" label="submit" disabled={!this.state.canSubmit} />
+                    <FlatButton label="Cancel" onClick={() => this.showFilter()}/>
+                  </div>
             </Formsy.Form>
           : null }
         </div>
 
-        <div className="row3 column1-3">
-          <FiltersTable data={this.state.data} />
+        <div className="row3 column2-4">
+          { this.state.showTable ? <FiltersTable data={this.state.data} /> : null }
         </div>
       </div>
     )

@@ -50,6 +50,9 @@ class App extends Component {
           <div className="row1 column1-6">
             <CompanyProfile company={this.state} />
           </div>
+          <div className="column1-6">
+            <h3>{this.props.companies.length} available</h3>
+          </div>
           <div className="row2 column3-4">
             <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={() => this.handleClick()} />
           </div>
