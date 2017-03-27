@@ -18,27 +18,16 @@ const styles = {
   }
 };
 
-var selection = {
-  id: 0,
-  name: "Press New Name"
-};
-
 class App extends Component {
   state = {
-    id: 0,
     name: "Press New Name"
   }
 
   handleClick = () => {
     var randomNumber = Math.floor(Math.random() * 9);
-    this.assignCompany(randomNumber);
-    this.setState(selection)
-  }
-
-  assignCompany = (id) => {
-    this.props.companies.forEach(function(company) {
-      if (company.id === id) {
-        selection = company;
+    this.props.companies.findIndex((company, index) => {
+        if (randomNumber === index) {
+          this.setState({name: company.name})
       }
     });
   }
