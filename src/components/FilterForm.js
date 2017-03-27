@@ -38,7 +38,6 @@ class FilterForm extends Component {
   }
 
   submitForm = (value) => {
-    value.id = this.state.data.length + 1;
     this.state.data.push(value);
     this.setState({data: this.state.data, showTable: true});
     this.showFilter();

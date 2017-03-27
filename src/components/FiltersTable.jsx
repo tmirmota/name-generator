@@ -17,11 +17,10 @@ class FiltersTable extends Component {
             <TableHeaderColumn>Filter</TableHeaderColumn>
           </TableRow>
         </TableHeader>
-
         <TableBody>
-          {data.map( data =>
-            <TableRow key={data.id}>
-              <TableRowColumn>{data.id}</TableRowColumn>
+          {data.map((data, index) =>
+            <TableRow key={index}>
+              <TableRowColumn>{index}</TableRowColumn>
               <TableRowColumn>{data.filterName}</TableRowColumn>
               <TableRowColumn>{data.included}</TableRowColumn>
               <TableRowColumn>{data.condition}</TableRowColumn>
