@@ -11,11 +11,18 @@ import { FormsyText, FormsySelect } from 'formsy-material-ui/lib';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 class FilterForm extends Component {
   state = {
     canSubmit: false,
+    showFilter: false,
     data: []
+  }
+
+  showFilter = () => {
+    this.setState({ showFilter: (this.state.showFilter ? false : true)})
   }
 
   enableButton = () => {
@@ -30,43 +37,57 @@ class FilterForm extends Component {
   }
 
   submitForm = (value) => {
+    value.id = this.state.data.length + 1;
     this.state.data.push(value);
     this.setState({data: this.state.data});
+    this.showFilter();
   }
 
   render() {
     return (
-      <div className="text-left">
-        <Formsy.Form
-          onValid={this.enableButton}
-          onInvalid={this.disableButton}
-          onValidSubmit={this.submitForm}>
-            <FormsyText
-              name="filterName"
-              required
-              floatingLabelText="Filter Name" />
-            <FormsySelect
-              name="included"
-              required
-              hintText="Select a option" >
-                <MenuItem value={true} primaryText="Include" />
-                <MenuItem value={false} primaryText="Exclude" />
-             </FormsySelect>
-             <FormsySelect
-               name="condition"
-               required
-               hintText="Select a condition" >
-                 <MenuItem value={'contains'} primaryText="Contains" />
-                 <MenuItem value={'start'} primaryText="Starts with" />
-              </FormsySelect>
-              <FormsyText
-                name="filterValue"
-                required
-                hintText="Example: value" />
-              <RaisedButton type="submit" label="submit" disabled={!this.state.canSubmit} onClick={() => this.props.onClick()} />
-            <FlatButton label="Cancel" onClick={() => this.props.onClick()}/>
-        </Formsy.Form>
-        <div>
+      <div className="grid-3 text-left">
+
+        <div className="row1 column2 text-center">
+          <FloatingActionButton disabled={this.state.showFilter} onClick={() => this.showFilter()}>
+            <ContentAdd />
+          </FloatingActionButton>
+        </div>
+
+        <div className="row2 column1-3">
+          {this.state.showFilter ?
+            <Formsy.Form
+              onValid={this.enableButton}
+              onInvalid={this.disableButton}
+              onValidSubmit={this.submitForm}>
+                <FormsyText
+                  name="filterName"
+                  required
+                  floatingLabelText="Filter Name" />
+                <FormsySelect
+                  name="included"
+                  required
+                  hintText="Select a option" >
+                    <MenuItem value={true} primaryText="Include" />
+                    <MenuItem value={false} primaryText="Exclude" />
+                 </FormsySelect>
+                 <FormsySelect
+                   name="condition"
+                   required
+                   hintText="Select a condition" >
+                     <MenuItem value={'contains'} primaryText="Contains" />
+                     <MenuItem value={'start'} primaryText="Starts with" />
+                  </FormsySelect>
+                  <FormsyText
+                    name="filterValue"
+                    required
+                    hintText="Example: value" />
+                  <RaisedButton type="submit" label="submit" disabled={!this.state.canSubmit} />
+                <FlatButton label="Cancel" onClick={() => this.showFilter()}/>
+            </Formsy.Form>
+          : null }
+        </div>
+
+        <div className="row3 column1-3">
           <FiltersTable data={this.state.data} />
         </div>
       </div>

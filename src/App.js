@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './css/App.css';
 
+// material-ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 
+// Components
 import CompanyProfile from './components/CompanyProfile';
 import FilterForm from './components/FilterForm';
 
@@ -24,32 +24,25 @@ var selection = {
 };
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.assignCompany = this.assignCompany.bind(this);
-    this.onClick = this.onClick.bind(this);
-    this.state = {
-      id: 0,
-      name: "Press New Name",
-      showFilter: false
-    };
+  state = {
+    id: 0,
+    name: "Press New Name"
   }
-  handleClick() {
+
+  handleClick = () => {
     var randomNumber = Math.floor(Math.random() * 9);
     this.assignCompany(randomNumber);
     this.setState(selection)
   }
-  assignCompany(id) {
+
+  assignCompany = (id) => {
     this.props.companies.forEach(function(company) {
       if (company.id === id) {
         selection = company;
       }
     });
   }
-  onClick() {
-    this.setState({ showFilter: (this.state.showFilter ? false : true)})
-  }
+
   render() {
     return (
       <MuiThemeProvider>
@@ -60,13 +53,8 @@ class App extends Component {
           <div className="row2 column3-4">
             <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={() => this.handleClick()} />
           </div>
-          <div className="row4 column1-6">
-            <FloatingActionButton disabled={this.state.showFilter} onClick={() => this.onClick()}>
-              <ContentAdd />
-            </FloatingActionButton>
-          </div>
-          <div className="row5 column1-6" display="none">
-            { this.state.showFilter ? <FilterForm onClick={() => this.onClick()} /> : null }
+          <div className="row3 column1-6">
+            <FilterForm />
           </div>
         </div>
       </MuiThemeProvider>

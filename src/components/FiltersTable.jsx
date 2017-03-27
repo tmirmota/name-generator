@@ -17,17 +17,18 @@ class FiltersTable extends Component {
             <TableHeaderColumn>Filter</TableHeaderColumn>
           </TableRow>
         </TableHeader>
-        {data.map( data =>
+
         <TableBody>
-          <TableRow key={data.id}>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>{data.filterName}</TableRowColumn>
-            <TableRowColumn>true</TableRowColumn>
-            <TableRowColumn>Starts with</TableRowColumn>
-            <TableRowColumn>Br</TableRowColumn>
-          </TableRow>
+          {data.map( data =>
+            <TableRow key={data.id}>
+              <TableRowColumn>{data.id}</TableRowColumn>
+              <TableRowColumn>{data.filterName}</TableRowColumn>
+              <TableRowColumn>true</TableRowColumn>
+              <TableRowColumn>Starts with</TableRowColumn>
+              <TableRowColumn>Br</TableRowColumn>
+            </TableRow>
+          )}
         </TableBody>
-        )}
       </Table>
     );
   }
