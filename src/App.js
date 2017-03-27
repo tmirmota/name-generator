@@ -23,11 +23,19 @@ class App extends Component {
     name: "Press New Name"
   }
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.name === this.state.name) {
+      this.handleClick();
+    } else {
+      return (true);
+    }
+  }
+
   handleClick = () => {
     var randomNumber = Math.floor(Math.random() * 9);
     this.props.companies.findIndex((company, index) => {
         if (randomNumber === index) {
-          this.setState({name: company.name})
+          this.setState({name: company.name});
       }
     });
   }
