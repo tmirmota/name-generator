@@ -18,6 +18,9 @@ const styles = {
   }
 };
 
+
+
+
 class App extends Component {
   state = {
     name: "Press New Name"
@@ -26,8 +29,6 @@ class App extends Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.name === this.state.name) {
       this.handleClick();
-    } else {
-      return (true);
     }
   }
 
@@ -41,6 +42,8 @@ class App extends Component {
   }
 
   render() {
+    const start = "F";
+    this.companies.filter(this.companies.name.startsWith("F");
     return (
       <MuiThemeProvider>
         <div className="grid-6 text-center">
