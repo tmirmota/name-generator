@@ -19,20 +19,20 @@ const styles = {
 };
 
 
-
-
 class App extends Component {
   state = {
-    name: "Press New Name"
+    name: "Press New Name",
+    showTable: false,
+    data:[]
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate(prevProps, prevState) {
     if (prevState.name === this.state.name) {
       this.handleClick();
     }
   }
 
-  handleClick = () => {
+  handleClick() {
     var randomNumber = Math.floor(Math.random() * 9);
     this.props.companies.findIndex((company, index) => {
         if (randomNumber === index) {
@@ -41,9 +41,16 @@ class App extends Component {
     });
   }
 
+  filterData(company) {
+    return(company === "Facebook");
+  }
+
+  submitForm = (value) => {
+    this.state.data.push(value);
+    this.setState({data: this.state.data, showTable: true});
+  }
+
   render() {
-    const start = "F";
-    this.companies.filter(this.companies.name.startsWith("F");
     return (
       <MuiThemeProvider>
         <div className="grid-6 text-center">
@@ -57,7 +64,7 @@ class App extends Component {
             <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={() => this.handleClick()} />
           </div>
           <div className="row3 column1-6">
-            <FilterForm />
+            <FilterForm onClick={this.submitForm} />
           </div>
         </div>
       </MuiThemeProvider>

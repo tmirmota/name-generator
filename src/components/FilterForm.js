@@ -17,9 +17,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 class FilterForm extends Component {
   state = {
     canSubmit: false,
-    showFilter: false,
-    showTable: false,
-    data: []
+    showFilter: false
   }
 
   showFilter = () => {
@@ -31,16 +29,11 @@ class FilterForm extends Component {
       canSubmit: true
     });
   }
+
   disableButton = () => {
     this.setState({
       canSubmit: false
     });
-  }
-
-  submitForm = (value) => {
-    this.state.data.push(value);
-    this.setState({data: this.state.data, showTable: true});
-    this.showFilter();
   }
 
   render() {
@@ -58,7 +51,7 @@ class FilterForm extends Component {
             <Formsy.Form
               onValid={this.enableButton}
               onInvalid={this.disableButton}
-              onValidSubmit={this.submitForm}>
+              onValidSubmit={() => this.props.submitForm()}>
                 <FormsyText
                   name="filterName"
                   required
@@ -92,6 +85,7 @@ class FilterForm extends Component {
         <div className="row3 column2-4">
           { this.state.showTable ? <FiltersTable data={this.state.data} /> : null }
         </div>
+
       </div>
     )
   }
