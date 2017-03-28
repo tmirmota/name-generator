@@ -45,7 +45,7 @@ class App extends Component {
     return(company === "Facebook");
   }
 
-  submitForm = (value) => {
+  submitForm(value) {
     this.state.data.push(value);
     this.setState({data: this.state.data, showTable: true});
   }
@@ -64,7 +64,7 @@ class App extends Component {
             <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={() => this.handleClick()} />
           </div>
           <div className="row3 column1-6">
-            <FilterForm onClick={this.submitForm} />
+            <FilterForm submitForm={() => this.submitForm()} />
           </div>
         </div>
       </MuiThemeProvider>

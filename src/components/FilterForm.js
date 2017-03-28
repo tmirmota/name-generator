@@ -51,7 +51,7 @@ class FilterForm extends Component {
             <Formsy.Form
               onValid={this.enableButton}
               onInvalid={this.disableButton}
-              onValidSubmit={() => this.props.submitForm()}>
+              onValidSubmit={this.props.submitForm}>
                 <FormsyText
                   name="filterName"
                   required
