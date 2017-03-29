@@ -5,7 +5,9 @@ import { Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowCol
 
 class FiltersTable extends Component {
   render() {
+    
     const data = this.props.data;
+
     if (0 >= data.length) {
       return (null);
     } else {
@@ -23,7 +25,7 @@ class FiltersTable extends Component {
           <TableBody>
             {data.map((data, index) =>
               <TableRow key={index}>
-                <TableRowColumn>{index}</TableRowColumn>
+                <TableRowColumn>{Number(index) + 1}</TableRowColumn>
                 <TableRowColumn>{data.filterName}</TableRowColumn>
                 <TableRowColumn>{data.included}</TableRowColumn>
                 <TableRowColumn>{data.condition}</TableRowColumn>

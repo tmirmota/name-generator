@@ -22,9 +22,9 @@ class App extends Component {
     this.setState({ name: company.name });
   }
 
-  submitForm = (value) => {
-    this.state.data.push(value);
-    this.setState({data: this.state.data});
+  formData = (newData) => {
+    this.state.data.push(newData);
+    this.setState({ data: this.state.data });
   }
 
   render() {
@@ -41,7 +41,7 @@ class App extends Component {
           </div>
 
           <div className="row3 column1-6">
-            <FilterForm submitForm={this.submitForm} />
+            <FilterForm sendFormData={this.formData} />
           </div>
 
           <div className="row4 column2-5">
