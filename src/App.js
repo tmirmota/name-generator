@@ -32,7 +32,7 @@ class App extends Component {
     }
   }
 
-  handleClick() {
+  handleClick = () => {
     var randomNumber = Math.floor(Math.random() * 9);
     this.props.companies.findIndex((company, index) => {
         if (randomNumber === index) {
@@ -41,11 +41,7 @@ class App extends Component {
     });
   }
 
-  filterData(company) {
-    return(company === "Facebook");
-  }
-
-  submitForm(value) {
+  submitForm = (value) => {
     this.state.data.push(value);
     this.setState({data: this.state.data, showTable: true});
   }
@@ -61,10 +57,10 @@ class App extends Component {
             <h3>{this.props.companies.length} available</h3>
           </div>
           <div className="row2 column3-4">
-            <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={() => this.handleClick()} />
+            <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={this.handleClick} />
           </div>
           <div className="row3 column1-6">
-            <FilterForm submitForm={() => this.submitForm()} />
+            <FilterForm submitForm={this.submitForm} />
           </div>
         </div>
       </MuiThemeProvider>
