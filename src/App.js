@@ -16,12 +16,12 @@ class App extends Component {
     data:[]
   }
 
-  shouldComponentUpdate
-
   handleClick = () => {
     const companies = this.props.companies;
-    const company = companies[Math.floor(Math.random()*companies.length)];
+    const randomNumber = Math.floor(Math.random()*companies.length);
+    const company = companies[randomNumber];
     this.setState({ name: company.name });
+    companies.splice(randomNumber,1);
   }
 
   formData = (newData) => {

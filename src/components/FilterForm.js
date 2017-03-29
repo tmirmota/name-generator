@@ -54,10 +54,12 @@ class FilterForm extends Component {
               onValid={this.enableButton}
               onInvalid={this.disableButton}
               onValidSubmit={this.submitForm}>
+
                 <FormsyText
                   name="filterName"
                   required
                   floatingLabelText="Filter Name" />
+
                 <FormsySelect
                   name="included"
                   required
@@ -65,6 +67,7 @@ class FilterForm extends Component {
                     <MenuItem value={'Include'} primaryText="Include" />
                     <MenuItem value={'Exclude'} primaryText="Exclude" />
                  </FormsySelect>
+
                  <FormsySelect
                    name="condition"
                    required
@@ -72,14 +75,17 @@ class FilterForm extends Component {
                      <MenuItem value={'contains'} primaryText="Contains" />
                      <MenuItem value={'start'} primaryText="Starts with" />
                   </FormsySelect>
+
                   <FormsyText
                     name="filterValue"
                     required
                     hintText="Example: value" />
+
                   <div>
                     <RaisedButton type="submit" label="Submit" disabled={!this.state.canSubmit} />
                     <FlatButton label="Cancel" onClick={this.hideFilter} />
                   </div>
+                  
             </Formsy.Form>
           : null }
         </div>
