@@ -5,7 +5,7 @@ class CompanyProfile extends Component {
   render() {
     return (
       <div>
-        <CompanyName name={this.props.company.name}/>
+        <CompanyName name={this.props.company.name} handleChange={this.props.handleChange} />
       </div>
     );
   }

@@ -10,27 +10,16 @@ import FilterForm from './components/FilterForm';
 import FiltersTable from './components/FiltersTable';
 import CompanyProfile from './components/CompanyProfile';
 
-function genRand(company, index) {
-  var randomNumber = Math.floor(Math.random() * 9);
-  if (randomNumber === index) {
-    this.setState({name: company.name})
-  }
-}
-
 class App extends Component {
   state = {
     name: "Press New Name",
     data:[]
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.name === this.state.name) {
-      this.handleClick();
-    }
-  }
-
   handleClick = () => {
-    this.props.companies.findIndex(genRand);
+    const companies = this.props.companies;
+    const company = companies[Math.floor(Math.random()*companies.length)];
+    this.setState({ name: company.name });
   }
 
   submitForm = (value) => {
@@ -44,7 +33,7 @@ class App extends Component {
 
         <div className="grid-6 text-center">
           <div className="row1 column1-6">
-            <CompanyProfile company={this.state} />
+            <CompanyProfile company={this.state} handleChange={this.handleClick} />
           </div>
 
           <div className="row2 column3-4">
