@@ -20,7 +20,6 @@ function genRand(company, index) {
 class App extends Component {
   state = {
     name: "Press New Name",
-    showTable: false,
     data:[]
   }
 
@@ -36,7 +35,7 @@ class App extends Component {
 
   submitForm = (value) => {
     this.state.data.push(value);
-    this.setState({data: this.state.data, showTable: true});
+    this.setState({data: this.state.data});
   }
 
   render() {
@@ -57,7 +56,7 @@ class App extends Component {
           </div>
 
           <div className="row4 column2-5">
-            { this.state.showTable ? <FiltersTable data={this.state.data} /> : null }
+            <FiltersTable data={this.state.data} />
           </div>
         </div>
 
