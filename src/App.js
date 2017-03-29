@@ -9,15 +9,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CompanyProfile from './components/CompanyProfile';
 import FilterForm from './components/FilterForm';
 
-const styles = {
-  button: {
-    margin: 12,
-  },
-  centered: {
-    margin: 'auto',
-  }
-};
-
 
 class App extends Component {
   state = {
@@ -53,11 +44,8 @@ class App extends Component {
           <div className="row1 column1-6">
             <CompanyProfile company={this.state} />
           </div>
-          <div className="column1-6">
-            <h3>{this.props.companies.length} available</h3>
-          </div>
           <div className="row2 column3-4">
-            <RaisedButton label="New Name" secondary={true} style={styles.button} onClick={this.handleClick} />
+            <RaisedButton label="New Name" secondary={true} onClick={this.handleClick} />
           </div>
           <div className="row3 column1-6">
             <FilterForm submitForm={this.submitForm} />
