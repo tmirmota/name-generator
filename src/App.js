@@ -16,6 +16,8 @@ class App extends Component {
     data:[]
   }
 
+  shouldComponentUpdate
+
   handleClick = () => {
     const companies = this.props.companies;
     const company = companies[Math.floor(Math.random()*companies.length)];

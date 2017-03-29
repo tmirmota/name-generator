@@ -14,8 +14,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 class FilterForm extends Component {
   state = {
     canSubmit: false,
-    displayFilter: false,
-    data: []
+    displayFilter: false
   }
 
   showFilter = () => {
