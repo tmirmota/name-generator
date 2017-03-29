@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-// Components
-import FiltersTable from './FiltersTable';
-
 // Formsy
 import Formsy from 'formsy-react';
 import { FormsyText, FormsySelect } from 'formsy-material-ui/lib';
@@ -17,23 +14,23 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 class FilterForm extends Component {
   state = {
     canSubmit: false,
-    showFilter: false
+    displayFilter: false
   }
 
   showFilter = () => {
-    this.setState({ showFilter: (this.state.showFilter ? false : true)})
+    this.setState({ displayFilter: true });
+  }
+
+  hideFilter = () => {
+    this.setState({ displayFilter: false });
   }
 
   enableButton = () => {
-    this.setState({
-      canSubmit: true
-    });
+    this.setState({ canSubmit: true });
   }
 
   disableButton = () => {
-    this.setState({
-      canSubmit: false
-    });
+    this.setState({ canSubmit: false });
   }
 
   render() {
@@ -41,13 +38,13 @@ class FilterForm extends Component {
       <div className="grid-5 text-left">
 
         <div className="row1 column3 text-center">
-          <FloatingActionButton disabled={this.state.showFilter} onClick={() => this.showFilter()}>
+          <FloatingActionButton disabled={this.state.displayFilter} onClick={this.showFilter}>
             <ContentAdd />
           </FloatingActionButton>
         </div>
 
         <div className="column3 text-left">
-          {this.state.showFilter ?
+          {this.state.displayFilter ?
             <Formsy.Form
               onValid={this.enableButton}
               onInvalid={this.disableButton}
@@ -75,15 +72,11 @@ class FilterForm extends Component {
                     required
                     hintText="Example: value" />
                   <div>
-                    <RaisedButton type="submit" label="submit" disabled={!this.state.canSubmit} />
-                    <FlatButton label="Cancel" onClick={() => this.showFilter()}/>
+                    <RaisedButton type="submit" label="Submit" disabled={!this.state.canSubmit} />
+                    <FlatButton label="Cancel" onClick={this.hideFilter} />
                   </div>
             </Formsy.Form>
           : null }
-        </div>
-
-        <div className="row3 column2-4">
-          { this.state.showTable ? <FiltersTable data={this.state.data} /> : null }
         </div>
 
       </div>

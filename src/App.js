@@ -6,9 +6,16 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
 // Components
-import CompanyProfile from './components/CompanyProfile';
 import FilterForm from './components/FilterForm';
+import FiltersTable from './components/FiltersTable';
+import CompanyProfile from './components/CompanyProfile';
 
+function genRand(company, index) {
+  var randomNumber = Math.floor(Math.random() * 9);
+  if (randomNumber === index) {
+    this.setState({name: company.name})
+  }
+}
 
 class App extends Component {
   state = {
@@ -24,12 +31,7 @@ class App extends Component {
   }
 
   handleClick = () => {
-    var randomNumber = Math.floor(Math.random() * 9);
-    this.props.companies.findIndex((company, index) => {
-        if (randomNumber === index) {
-          this.setState({name: company.name});
-      }
-    });
+    this.props.companies.findIndex(genRand);
   }
 
   submitForm = (value) => {
@@ -40,17 +42,25 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
+
         <div className="grid-6 text-center">
           <div className="row1 column1-6">
             <CompanyProfile company={this.state} />
           </div>
+
           <div className="row2 column3-4">
             <RaisedButton label="New Name" secondary={true} onClick={this.handleClick} />
           </div>
+
           <div className="row3 column1-6">
             <FilterForm submitForm={this.submitForm} />
           </div>
+
+          <div className="row4 column2-5">
+            { this.state.showTable ? <FiltersTable data={this.state.data} /> : null }
+          </div>
         </div>
+
       </MuiThemeProvider>
     );
   }
