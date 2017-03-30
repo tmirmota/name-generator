@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './css/App.css';
+import createHistory from 'history/createMemoryHistory';
+
+
 
 // material-ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -49,6 +52,7 @@ class App extends Component {
   }
 
   render() {
+    const history = createHistory();
     return (
       <MuiThemeProvider>
 
@@ -63,6 +67,7 @@ class App extends Component {
 
           <div className="row2 column3-4">
             <RaisedButton label="New Name" secondary={true} onClick={this.handleClick} disabled={!this.state.newButton} />
+            <RaisedButton label="Back" onClick={history.goBack()}/>
           </div>
 
           <div className="row3 column1-6">
