@@ -10,18 +10,37 @@ import FilterForm from './components/FilterForm';
 import FiltersTable from './components/FiltersTable';
 import CompanyProfile from './components/CompanyProfile';
 
+
 class App extends Component {
   state = {
     name: "Press New Name",
+    newButton: true,
     data:[]
   }
 
-  handleClick = () => {
-    const companies = this.props.companies;
+  enableButton = () => {
+    this.setState({ newButton: true });
+  }
+
+  disableButton = () => {
+    this.setState({ newButton: false });
+  }
+
+  randCompany = (companies) => {
     const randomNumber = Math.floor(Math.random()*companies.length);
     const company = companies[randomNumber];
     this.setState({ name: company.name });
     companies.splice(randomNumber,1);
+  }
+
+  handleClick = () => {
+    const companies = this.props.companies;
+    if (companies.length > 1) {
+      this.randCompany(companies);
+    } else {
+      this.randCompany(companies);
+      this.disableButton();
+    }
   }
 
   formData = (newData) => {
@@ -38,8 +57,12 @@ class App extends Component {
             <CompanyProfile company={this.state} handleChange={this.handleClick} />
           </div>
 
+          <div className="column3-4">
+            <p>{this.props.companies.length} Companies</p>
+          </div>
+
           <div className="row2 column3-4">
-            <RaisedButton label="New Name" secondary={true} onClick={this.handleClick} />
+            <RaisedButton label="New Name" secondary={true} onClick={this.handleClick} disabled={!this.state.newButton} />
           </div>
 
           <div className="row3 column1-6">
