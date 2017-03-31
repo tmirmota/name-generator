@@ -15,28 +15,53 @@ class App extends Component {
   state = {
     name: "Press New Name",
     current: 0,
-    newButton: true,
+
+    // Arrays
     companies: [],
     newCompanies: [],
-    filterData: []
+    filterData: [],
+
+    // Buttons
+    newButton: true,
+    cancelButton: false
   }
 
   enableButton = () => { this.setState({ newButton: true }); }
   disableButton = () => { this.setState({ newButton: false }); }
 
+  checkCancelButton = () => {
+    if (this.state.newCompanies.length > 1) {
+      this.setState({ cancelButton: true })
+    } else {
+      this.setState({ cancelButton: false })
+    }
+  }
+
+  checkNewButton = () => {
+    if (this.state.companies.length > 0) {
+      this.setState({ newButton: true })
+    } else {
+      this.setState({ newButton: false })
+    }
+  }
+
   backButton = () => {
     const newCompanies = this.state.newCompanies;
+    this.state.companies.push(newCompanies[newCompanies.length - 1]);
     newCompanies.pop();
     const backCompany = newCompanies[newCompanies.length - 1];
+
     this.setCompany(backCompany);
+    this.checkCancelButton();
+    this.checkNewButton();
   }
 
   randCompany = (companies) => {
     const randomNumber = Math.floor(Math.random()*companies.length);
     const company = companies[randomNumber];
-    companies.splice(randomNumber,1);
     this.state.newCompanies.push(company);
     this.setCompany(company);
+    companies.splice(randomNumber,1);
   }
 
   setCompany = (company) => {
@@ -54,6 +79,7 @@ class App extends Component {
       this.randCompany(companies);
       this.disableButton();
     }
+    this.checkCancelButton();
   }
 
   formData = (newData) => {
@@ -76,7 +102,7 @@ class App extends Component {
 
           <div className="row2 column3-4">
             <RaisedButton label="New Name" secondary={true} onClick={this.handleClick} disabled={!this.state.newButton} />
-            <RaisedButton label="Back" onClick={this.backButton}/>
+            <RaisedButton label="Back" onClick={this.backButton} disabled={!this.state.cancelButton}/>
           </div>
 
           <div className="row3 column1-6">
