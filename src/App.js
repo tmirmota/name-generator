@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import './css/App.css';
-import createHistory from 'history/createMemoryHistory';
-
-
 
 // material-ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -17,27 +14,40 @@ import CompanyProfile from './components/CompanyProfile';
 class App extends Component {
   state = {
     name: "Press New Name",
+    current: 0,
     newButton: true,
-    data:[]
+    companies: [],
+    newCompanies: [],
+    filterData: []
   }
 
-  enableButton = () => {
-    this.setState({ newButton: true });
-  }
+  enableButton = () => { this.setState({ newButton: true }); }
+  disableButton = () => { this.setState({ newButton: false }); }
 
-  disableButton = () => {
-    this.setState({ newButton: false });
+  backButton = () => {
+    const newCompanies = this.state.newCompanies;
+    newCompanies.pop();
+    const backCompany = newCompanies[newCompanies.length - 1];
+    this.setCompany(backCompany);
   }
 
   randCompany = (companies) => {
     const randomNumber = Math.floor(Math.random()*companies.length);
     const company = companies[randomNumber];
-    this.setState({ name: company.name });
     companies.splice(randomNumber,1);
+    this.state.newCompanies.push(company);
+    this.setCompany(company);
+  }
+
+  setCompany = (company) => {
+    this.setState({ name: company.name });
   }
 
   handleClick = () => {
-    const companies = this.props.companies;
+    if (this.state.companies.length === 0) {
+      this.props.companies.map((company) => this.state.companies.push(company));
+    }
+    const companies = this.state.companies;
     if (companies.length > 1) {
       this.randCompany(companies);
     } else {
@@ -47,12 +57,11 @@ class App extends Component {
   }
 
   formData = (newData) => {
-    this.state.data.push(newData);
-    this.setState({ data: this.state.data });
+    this.state.filterData.push(newData);
+    this.setState({ filterData: this.state.filterData });
   }
 
   render() {
-    const history = createHistory();
     return (
       <MuiThemeProvider>
 
@@ -62,12 +71,12 @@ class App extends Component {
           </div>
 
           <div className="column3-4">
-            <p>{this.props.companies.length} Companies</p>
+            <p>{this.state.companies.length} Companies</p>
           </div>
 
           <div className="row2 column3-4">
             <RaisedButton label="New Name" secondary={true} onClick={this.handleClick} disabled={!this.state.newButton} />
-            <RaisedButton label="Back" onClick={history.goBack()}/>
+            <RaisedButton label="Back" onClick={this.backButton}/>
           </div>
 
           <div className="row3 column1-6">
@@ -75,7 +84,7 @@ class App extends Component {
           </div>
 
           <div className="row4 column2-5">
-            <FiltersTable data={this.state.data} />
+            <FiltersTable data={this.state.filterData} />
           </div>
         </div>
 

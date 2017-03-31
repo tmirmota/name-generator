@@ -5,10 +5,10 @@ import { Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowCol
 
 class FiltersTable extends Component {
   render() {
-    
+
     const data = this.props.data;
 
-    if (0 >= data.length) {
+    if (data.length <= 0) {
       return (null);
     } else {
       return (
