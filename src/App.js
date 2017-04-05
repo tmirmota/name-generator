@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './css/App.css';
 
 // material-ui
@@ -10,8 +11,21 @@ import FilterForm from './components/FilterForm';
 import FiltersTable from './components/FiltersTable';
 import CompanyProfile from './components/CompanyProfile';
 
+const API_KEY = '2p2rpauuyhpukw7624keg3n7';
+const url = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_KEY;
 
 class App extends Component {
+
+  componentDidMount() {
+    axios.get(url, {
+      ApplicationKey: {API_KEY},
+      Host: 'edgaronline.api.mashery.com',
+      Accept: 'application/json'
+    })
+      .then(response => {
+        console.log(response);
+      });
+  }
   state = {
     name: "Press New Name",
     current: 0,
@@ -20,6 +34,7 @@ class App extends Component {
     companies: [],
     newCompanies: [],
     filterData: [],
+    data: [],
 
     // Buttons
     newButton: true,
