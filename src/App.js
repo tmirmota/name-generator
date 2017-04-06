@@ -11,20 +11,19 @@ import FilterForm from './components/FilterForm';
 import FiltersTable from './components/FiltersTable';
 import CompanyProfile from './components/CompanyProfile';
 
-const API_KEY = '2p2rpauuyhpukw7624keg3n7';
-const url = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_KEY;
+// Edgar Data
+const API_Words_KEY = 'pn0s9I9O97mshDvk4H8RPynL7S8Hp1vFyebjsn7KY9nUC8A1am';
+const url = 'https://wordsapiv1.p.mashape.com/words/soliloquy';
 
 class App extends Component {
 
   componentDidMount() {
-    axios.get(url, {
-      ApplicationKey: {API_KEY},
-      Host: 'edgaronline.api.mashery.com',
-      Accept: 'application/json'
-    })
-      .then(response => {
-        console.log(response);
-      });
+    axios.defaults.baseURL = 'https://wordsapiv1.p.mashape.com/';
+    axios.defaults.headers.common['X-Mashape-Authorization'] = API_Words_KEY;
+    axios.get(url)
+      .then(res => {
+        console.log(res);
+      })
   }
   state = {
     name: "Press New Name",
