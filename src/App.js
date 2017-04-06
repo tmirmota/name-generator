@@ -17,6 +17,8 @@ const url = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols
 class App extends Component {
 
   componentDidMount() {
+    const API_KEY = '2p2rpauuyhpukw7624keg3n7';
+    const url = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_KEY;
     axios.get(url, {
       ApplicationKey: {API_KEY},
       Host: 'edgaronline.api.mashery.com',
