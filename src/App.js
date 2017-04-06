@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './css/App.css';
 
-// material-ui
+// Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -11,94 +11,56 @@ import FilterForm from './components/FilterForm';
 import FiltersTable from './components/FiltersTable';
 import CompanyProfile from './components/CompanyProfile';
 
-// Edgar Data
-const API_Words_KEY = 'pn0s9I9O97mshDvk4H8RPynL7S8Hp1vFyebjsn7KY9nUC8A1am';
-const url = 'https://wordsapiv1.p.mashape.com/words/soliloquy';
+// APIs
+const API_Words_KEY = 'pn0s9I9O97mshDvk4H8RPynL7S8Hp1vFyebjsn7KY9nUC8A1am'; // Words
+const wordsUrl = 'https://wordsapiv1.p.mashape.com/words/?random=true'; // Words
+
+const API_Edgar_KEY = '2p2rpauuyhpukw7624keg3n7'; // Edgar
+const edgarUrl = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_Edgar_KEY; // Edgar
+
 
 class App extends Component {
+  constructor() {
+    super();
+    axios.defaults.headers.common['X-Mashape-Authorization'] = API_Words_KEY; // Words API Authentication
 
-  componentDidMount() {
-    axios.defaults.baseURL = 'https://wordsapiv1.p.mashape.com/';
-    axios.defaults.headers.common['X-Mashape-Authorization'] = API_Words_KEY;
-    axios.get(url)
+    // Edgar API
+    axios.get(edgarUrl, {
+      ApplicationKey: {API_Edgar_KEY},
+      Host: 'edgaronline.api.mashery.com',
+      Accept: 'application/json'
+    })
       .then(res => {
         console.log(res);
-      })
+      });
   }
+
   state = {
     name: "Press New Name",
-    current: 0,
-
-    // Arrays
+    currentCompany: 0,
     companies: [],
     newCompanies: [],
-    filterData: [],
-    data: [],
-
-    // Buttons
-    newButton: true,
-    cancelButton: false
+    filterData: []
   }
 
   enableButton = () => { this.setState({ newButton: true }); }
   disableButton = () => { this.setState({ newButton: false }); }
 
-  checkCancelButton = () => {
-    if (this.state.newCompanies.length > 1) {
-      this.setState({ cancelButton: true })
-    } else {
-      this.setState({ cancelButton: false })
-    }
-  }
-
-  checkNewButton = () => {
-    if (this.state.companies.length > 0) {
-      this.setState({ newButton: true })
-    } else {
-      this.setState({ newButton: false })
-    }
-  }
-
-  backButton = () => {
-    const newCompanies = this.state.newCompanies;
-    this.state.companies.push(newCompanies[newCompanies.length - 1]);
-    newCompanies.pop();
-    const backCompany = newCompanies[newCompanies.length - 1];
-
-    this.setCompany(backCompany);
-    this.checkCancelButton();
-    this.checkNewButton();
-  }
-
-  randCompany = (companies) => {
-    const randomNumber = Math.floor(Math.random()*companies.length);
-    const company = companies[randomNumber];
-    this.state.newCompanies.push(company);
-    this.setCompany(company);
-    companies.splice(randomNumber,1);
-  }
-
-  setCompany = (company) => {
-    this.setState({ name: company.name });
-  }
-
   handleClick = () => {
-    if (this.state.companies.length === 0) {
-      this.props.companies.map((company) => this.state.companies.push(company));
-    }
-    const companies = this.state.companies;
-    if (companies.length > 1) {
-      this.randCompany(companies);
-    } else {
-      this.randCompany(companies);
-      this.disableButton();
-    }
-    this.checkCancelButton();
+    axios.get(wordsUrl, {
+      Host: 'https://wordsapiv1.p.mashape.com/'
+    })
+      .then(res => {
+        console.log(res.data.word);
+        const name = res.data.word;
+        this.setState({ name })
+      })
   }
 
   formData = (newData) => {
     this.state.filterData.push(newData);
-    this.setState({ filterData: this.state.filterData });
+    const filterData = this.state.filterData;
+    this.setState({ filterData });
   }
 
   render() {
