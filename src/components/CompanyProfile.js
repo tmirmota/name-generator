@@ -8,7 +8,7 @@ const CompanyProfile = ({company}) => {
     return <h2>Press Start App</h2>
   }
   return (
-    <div>
+    <div className="col-md-4">
       <CompanyName companyName={company.word} />
       <CompanyDefinition company={company} />
     </div>

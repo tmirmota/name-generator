@@ -12,7 +12,7 @@ import FiltersTable from './components/FiltersTable';
 import CompanyProfile from './components/CompanyProfile';
 // APIs
 const API_Words_KEY = 'pn0s9I9O97mshDvk4H8RPynL7S8Hp1vFyebjsn7KY9nUC8A1am'; // Words
-const wordsUrl = 'https://wordsapiv1.p.mashape.com/words/?random=true'; // Words
+const wordsUrl = 'https://wordsapiv1.p.mashape.com/words/?lettersMin=5&lettersMax=10&letterPattern=[b,c,d,f,g,h,j,k,l,m,n,p,q,r,s,t,v,x,z]&random=true'; // Words
 const API_Edgar_KEY = '2p2rpauuyhpukw7624keg3n7'; // Edgar
 const edgarUrl = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_Edgar_KEY; // Edgar
 
@@ -28,7 +28,8 @@ export default class App extends Component {
       filterData: [],
 
       // Buttons
-      showStart: true
+      showStart: true,
+      disableBackBtn: true
 
     }
   }
@@ -51,24 +52,40 @@ export default class App extends Component {
       });
   }
 
-  handleClick = (symbol) => {
+  // Should I be combining the nextCompany and backCompany methods
+  nextCompany = () => {
+    if (this.state.currentCompany > 0) {
+      this.setState({ disableBackBtn: false})
+    }
     this.setState(prevState => ({
-      currentCompany: (prevState.currentCompany symbol 1)
+      currentCompany: (prevState.currentCompany + 1)
     }));
     this.getCompany();
   }
 
+  backCompany = () => {
+    if (this.state.currentCompany === 2) {
+      this.setState({disableBackBtn: true})
+    }
+    this.setState(prevState => ({
+      currentCompany: (prevState.currentCompany - 1)
+    }));
+  }
+
   render() {
-    const company = this.state.companies[this.state.currentCompany];
+    const company = this.state.companies[this.state.currentCompany - 1];
     return (
       <MuiThemeProvider>
-        <div>
-          <CompanyProfile company={company} />
+        <div className="text-center">
+          <div className="row">
+            <CompanyProfile company={company} />
+          </div>
+
 
           { this.state.showStart ? <RaisedButton label="Start App" onClick={this.startApp} /> :
             <div>
-              <RaisedButton label="Back" onClick={this.handleClick(false)} />
-              <RaisedButton label="Next" secondary={true} onClick={this.handleClick(true)} />
+              <RaisedButton label="Back" onClick={this.backCompany} disabled={this.state.disableBackBtn}/>
+              <RaisedButton label="Next" onClick={this.nextCompany} secondary={true} />
             </div> }
 
           <FilterForm sendFormData={this.formData} />
@@ -83,7 +100,7 @@ export default class App extends Component {
   disableButton = () => { this.setState({ newButton: false }); }
 
   startApp = () => {
-    this.handleClick();
+    this.nextCompany();
     this.setState({ showStart: false });
   }
   formData = (newData) => {
