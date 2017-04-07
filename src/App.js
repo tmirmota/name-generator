@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import _ from 'lodash';
+
 import './css/App.css';
 
 // Material UI
@@ -26,11 +28,11 @@ export default class App extends Component {
   }
   constructor() {
     super();
+    axios.defaults.headers.common['X-Mashape-Authorization'] = API_Words_KEY; // Words API Authentication
     this.addCompany();
   }
 
-  addCompany() {
-    axios.defaults.headers.common['X-Mashape-Authorization'] = API_Words_KEY; // Words API Authentication
+  getCompany() {
     // Words API
     axios.get(wordsUrl, {
       Host: 'https://wordsapiv1.p.mashape.com/'
@@ -41,6 +43,15 @@ export default class App extends Component {
         }));
       });
   }
+
+  addCompany() {
+    if ((this.state.companies.length - this.state.currentCompany) < 5) {
+      console.log((this.state.companies.length - this.state.currentCompany));
+      this.getCompany();
+    }
+
+  }
+
 
   enableButton = () => { this.setState({ newButton: true }); }
   disableButton = () => { this.setState({ newButton: false }); }
