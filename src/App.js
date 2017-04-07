@@ -21,16 +21,18 @@ export default class App extends Component {
   constructor() {
     super();
     axios.defaults.headers.common['X-Mashape-Authorization'] = API_Words_KEY; // Words API Authentication
-    this.addCompany();
+    this.getCompany();
     this.state = {
-      name: "Press New Name",
       currentCompany: 0,
       companies: [],
-      filterData: []
+      filterData: [],
+
+      // Buttons
+      showStart: true
+
     }
   }
-
-  addCompany() {
+  getCompany() {
     // Words API
     axios.get(wordsUrl, {
       Host: 'https://wordsapiv1.p.mashape.com/'
@@ -44,44 +46,30 @@ export default class App extends Component {
         // The if should build the array 5 companies in future
         // Need to find a new way to loop method so that it stays a maximum of 5 companies in advance
         if ((companies - currentCompany) < 5) {
-          return this.addCompany();
+          return this.getCompany();
         }
       });
-
   }
 
-  enableButton = () => { this.setState({ newButton: true }); }
-  disableButton = () => { this.setState({ newButton: false }); }
-
-  handleClick = () => {
-    const company = this.state.companies[this.state.currentCompany];
-    // Check to see that the array has enough companies for the new name
-    // I don't think this is the best way to do this
-    if (!company) {
-      return false;
-    }
-    const name = company.word;
-    this.setState({ name });
+  handleClick = (symbol) => {
     this.setState(prevState => ({
-      currentCompany: (prevState.currentCompany + 1)
+      currentCompany: (prevState.currentCompany symbol 1)
     }));
-    this.addCompany();
-  }
-
-  formData = (newData) => {
-    this.setState(prevState => ({
-      filterData: prevState.filterData.concat(newData)
-    }));
+    this.getCompany();
   }
 
   render() {
+    const company = this.state.companies[this.state.currentCompany];
     return (
       <MuiThemeProvider>
         <div>
-          <CompanyProfile company={this.state} />
+          <CompanyProfile company={company} />
 
-          <RaisedButton label="New Name" secondary={true} onClick={this.handleClick} />
-          <RaisedButton label="Back" onClick={this.backButton} disabled={!this.state.cancelButton}/>
+          { this.state.showStart ? <RaisedButton label="Start App" onClick={this.startApp} /> :
+            <div>
+              <RaisedButton label="Back" onClick={this.handleClick(false)} />
+              <RaisedButton label="Next" secondary={true} onClick={this.handleClick(true)} />
+            </div> }
 
           <FilterForm sendFormData={this.formData} />
           <FiltersTable data={this.state.filterData} />
@@ -89,6 +77,19 @@ export default class App extends Component {
         </div>
       </MuiThemeProvider>
     );
+  }
+
+  enableButton = () => { this.setState({ newButton: true }); }
+  disableButton = () => { this.setState({ newButton: false }); }
+
+  startApp = () => {
+    this.handleClick();
+    this.setState({ showStart: false });
+  }
+  formData = (newData) => {
+    this.setState(prevState => ({
+      filterData: prevState.filterData.concat(newData)
+    }));
   }
   componentWillMount() {
     // Edgar API
