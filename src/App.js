@@ -1,38 +1,36 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
-
+// Styles
 import './css/App.css';
-
 // Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-
 // Components
 import FilterForm from './components/FilterForm';
 import FiltersTable from './components/FiltersTable';
 import CompanyProfile from './components/CompanyProfile';
-
 // APIs
 const API_Words_KEY = 'pn0s9I9O97mshDvk4H8RPynL7S8Hp1vFyebjsn7KY9nUC8A1am'; // Words
 const wordsUrl = 'https://wordsapiv1.p.mashape.com/words/?random=true'; // Words
 const API_Edgar_KEY = '2p2rpauuyhpukw7624keg3n7'; // Edgar
 const edgarUrl = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_Edgar_KEY; // Edgar
 
+
 export default class App extends Component {
-  state = {
-    name: "Press New Name",
-    currentCompany: 0,
-    companies: [],
-    filterData: []
-  }
   constructor() {
     super();
     axios.defaults.headers.common['X-Mashape-Authorization'] = API_Words_KEY; // Words API Authentication
     this.addCompany();
+    this.state = {
+      name: "Press New Name",
+      currentCompany: 0,
+      companies: [],
+      filterData: []
+    }
   }
 
-  getCompany() {
+  addCompany() {
     // Words API
     axios.get(wordsUrl, {
       Host: 'https://wordsapiv1.p.mashape.com/'
@@ -41,23 +39,27 @@ export default class App extends Component {
         this.setState(prevState => ({
           companies: prevState.companies.concat(res.data)
         }));
+        const companies = this.state.companies.length;
+        const currentCompany = this.state.currentCompany;
+        // The if should build the array 5 companies in future
+        // Need to find a new way to loop method so that it stays a maximum of 5 companies in advance
+        if ((companies - currentCompany) < 5) {
+          return this.addCompany();
+        }
       });
-  }
-
-  addCompany() {
-    if ((this.state.companies.length - this.state.currentCompany) < 5) {
-      console.log((this.state.companies.length - this.state.currentCompany));
-      this.getCompany();
-    }
 
   }
-
 
   enableButton = () => { this.setState({ newButton: true }); }
   disableButton = () => { this.setState({ newButton: false }); }
 
   handleClick = () => {
     const company = this.state.companies[this.state.currentCompany];
+    // Check to see that the array has enough companies for the new name
+    // I don't think this is the best way to do this
+    if (!company) {
+      return false;
+    }
     const name = company.word;
     this.setState({ name });
     this.setState(prevState => ({
@@ -76,7 +78,7 @@ export default class App extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <CompanyProfile company={this.state} handleChange={this.handleClick} />
+          <CompanyProfile company={this.state} />
 
           <RaisedButton label="New Name" secondary={true} onClick={this.handleClick} />
           <RaisedButton label="Back" onClick={this.backButton} disabled={!this.state.cancelButton}/>
