@@ -76,17 +76,23 @@ export default class App extends Component {
     const company = this.state.companies[this.state.currentCompany - 1];
     return (
       <MuiThemeProvider>
-        <div className="text-center">
-          <div className="row">
+        <div className="container">
+          <div className="row text-center">
             <CompanyProfile company={company} />
           </div>
 
+          <div className="row text-center">
+            { this.state.showStart ? <RaisedButton label="Start App" onClick={this.startApp} /> :
+              <div>
+                <div className="col-md-6">
+                  <RaisedButton label="Back" onClick={this.backCompany} disabled={this.state.disableBackBtn} />
+                </div>
+                <div className="col-md-6">
+                  <RaisedButton label="Next" onClick={this.nextCompany} secondary={true} />
+                </div>
+              </div> }
+          </div>
 
-          { this.state.showStart ? <RaisedButton label="Start App" onClick={this.startApp} /> :
-            <div>
-              <RaisedButton label="Back" onClick={this.backCompany} disabled={this.state.disableBackBtn}/>
-              <RaisedButton label="Next" onClick={this.nextCompany} secondary={true} />
-            </div> }
 
           <FilterForm sendFormData={this.formData} />
           <FiltersTable data={this.state.filterData} />
