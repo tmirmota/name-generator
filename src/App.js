@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import axios from 'axios';
 import _ from 'lodash';
 // Styles
@@ -16,6 +17,9 @@ const wordsUrl = 'https://wordsapiv1.p.mashape.com/words/?lettersMin=5&lettersMa
 const API_Edgar_KEY = '2p2rpauuyhpukw7624keg3n7'; // Edgar
 const edgarUrl = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_Edgar_KEY; // Edgar
 
+const style = {
+  margin: 12
+}
 
 export default class App extends Component {
   constructor() {
@@ -24,7 +28,9 @@ export default class App extends Component {
     this.getCompany();
     this.state = {
       currentCompany: 0,
-      companies: [],
+      companies: [
+        { word: "Press Start App" }
+      ],
       filterData: [],
 
       // Buttons
@@ -73,26 +79,31 @@ export default class App extends Component {
   }
 
   render() {
-    const company = this.state.companies[this.state.currentCompany - 1];
+    const company = this.state.companies[this.state.currentCompany];
     return (
       <MuiThemeProvider>
         <div className="container">
           <div className="row text-center">
             <CompanyProfile company={company} />
           </div>
-
-          <div className="row text-center">
+          <ReactCSSTransitionGroup
+            transitionName="example"
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}>
+          <div className="row text-center cmd-buttons">
             { this.state.showStart ? <RaisedButton label="Start App" onClick={this.startApp} /> :
               <div>
-                <div className="col-md-6">
-                  <RaisedButton label="Back" onClick={this.backCompany} disabled={this.state.disableBackBtn} />
-                </div>
-                <div className="col-md-6">
-                  <RaisedButton label="Next" onClick={this.nextCompany} secondary={true} />
-                </div>
+
+                  <div className="col-md-12">
+                    <RaisedButton label="Back" onClick={this.backCompany} disabled={this.state.disableBackBtn} style={style} />
+                    <RaisedButton label="Next" onClick={this.nextCompany} style={style} />
+                  </div>
+
               </div> }
           </div>
-
+          </ReactCSSTransitionGroup>
 
           <FilterForm sendFormData={this.formData} />
           <FiltersTable data={this.state.filterData} />

@@ -5,7 +5,11 @@ import CompanyDefinition from './CompanyDefinition';
 
 const CompanyProfile = ({company}) => {
   if (!company) {
-    return <h2 className="company-profile">Press Start App</h2>
+    return (
+      <div className="company-profile">
+        <h1>loading...</h1>
+      </div>
+    );
   }
   return (
     <div className='company-profile'>
