@@ -82,7 +82,7 @@ export default class App extends Component {
     const company = this.state.companies[this.state.currentCompany];
     return (
       <MuiThemeProvider>
-        <div className="container">
+        <div className="wrapper">
           <div className="row text-center">
             <CompanyProfile company={company} />
           </div>
@@ -107,6 +107,7 @@ export default class App extends Component {
 
           <FilterForm sendFormData={this.formData} />
           <FiltersTable data={this.state.filterData} />
+          
 
         </div>
       </MuiThemeProvider>

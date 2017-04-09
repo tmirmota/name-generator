@@ -9,12 +9,21 @@
 
 // Partials
 @import './partials/grid';
+@import './partials/page-content';
 
 // Global
+h1 {
+  font-size: 10rem;
+}
+
+.wrapper {
+  min-height: 500px;
+}
+
 .company-profile {
   max-width: 600px;
   margin: auto;
-  min-height: 100px;
+  min-height: 200px;
   margin-top: 40px;
 }
 
