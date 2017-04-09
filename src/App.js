@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import axios from 'axios';
 import _ from 'lodash';
 // Styles
@@ -86,12 +85,7 @@ export default class App extends Component {
           <div className="row text-center">
             <CompanyProfile company={company} />
           </div>
-          <ReactCSSTransitionGroup
-            transitionName="example"
-            transitionAppear={true}
-            transitionAppearTimeout={500}
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}>
+          
           <div className="row text-center cmd-buttons">
             { this.state.showStart ? <RaisedButton label="Start App" onClick={this.startApp} /> :
               <div>
@@ -103,11 +97,10 @@ export default class App extends Component {
 
               </div> }
           </div>
-          </ReactCSSTransitionGroup>
 
           <FilterForm sendFormData={this.formData} />
           <FiltersTable data={this.state.filterData} />
-          
+
 
         </div>
       </MuiThemeProvider>
