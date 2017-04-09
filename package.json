@@ -25,7 +25,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "formsy-material-ui": "^0.5.5",
-    "formsy-react": "^0.19.2",
+    "formsy-react": "^0.18.1",
     "foundation-sites": "^6.3.1",
     "history": "^4.6.1",
     "latest-version": "^3.0.0",
