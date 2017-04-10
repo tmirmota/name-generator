@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
+import { bounce } from 'react-animations';
+import Radium from 'radium';
 // Styles
 import './css/App.css';
 // Material UI
@@ -16,9 +18,15 @@ const wordsUrl = 'https://wordsapiv1.p.mashape.com/words/?lettersMin=5&lettersMa
 const API_Edgar_KEY = '2p2rpauuyhpukw7624keg3n7'; // Edgar
 const edgarUrl = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_Edgar_KEY; // Edgar
 
-const style = {
-  margin: 12
+// Styles
+const styles = {
+  bounce: {
+    margin: 12,
+    animation: 'x 1s',
+    animationName: Radium.keyframes(bounce, 'bounce')
+  }
 }
+
 
 export default class App extends Component {
   constructor() {
@@ -85,18 +93,16 @@ export default class App extends Component {
           <div className="row text-center">
             <CompanyProfile company={company} />
           </div>
-          
+
           <div className="row text-center cmd-buttons">
-            { this.state.showStart ? <RaisedButton label="Start App" onClick={this.startApp} /> :
-              <div>
-
-                  <div className="col-md-12">
-                    <RaisedButton label="Back" onClick={this.backCompany} disabled={this.state.disableBackBtn} style={style} />
-                    <RaisedButton label="Next" onClick={this.nextCompany} style={style} />
-                  </div>
-
-              </div> }
+            { this.state.showStart &&
+              <RaisedButton label="Start App" onClick={this.startApp} frameClass={styles.bounce} /> }
+            { !this.state.showStart &&
+              <RaisedButton label="Back" onClick={this.backCompany} disabled={this.state.disableBackBtn} style={styles.bounce} /> }
+            { !this.state.showStart &&
+              <RaisedButton label="Next" onClick={this.nextCompany} style={styles.bounce} /> }
           </div>
+
 
           <FilterForm sendFormData={this.formData} />
           <FiltersTable data={this.state.filterData} />
