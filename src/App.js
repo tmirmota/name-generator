@@ -14,7 +14,7 @@ import Company from './components/Company';
 
 // APIs
 const API_Words_KEY = 'pn0s9I9O97mshDvk4H8RPynL7S8Hp1vFyebjsn7KY9nUC8A1am'; // Words
-const wordsUrl = 'https://wordsapiv1.p.mashape.com/words/?lettersMin=5&lettersMax=10&letterPattern=[b,c,d,f,g,h,j,k,l,m,n,p,q,r,s,t,v,x,z]&random=true'; // Words
+const wordsUrl = 'https://wordsapiv1.p.mashape.com/words?frequencyMax=6&frequencyMin=2&lettersMax=10&lettersMin=5&limit=100&page=1&letterPattern=[b,c,d,f,g,h,j,k,l,m,n,p,q,r,s,t,v,x,z]&random=true';// Words
 // const API_Edgar_KEY = '2p2rpauuyhpukw7624keg3n7'; // Edgar
 // const edgarUrl = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_Edgar_KEY; // Edgar
 
@@ -45,15 +45,14 @@ export default class App extends Component {
         if (res.data.word.indexOf(" ") >= 0) {
           return this.getCompany();
         }
-        this.setState(prevState => ({
-          companies: prevState.companies.concat(res.data.word)
-        }));
+
         const companiesLength = this.state.companies.length;
         const { currentCompany } = this.state;
-        // The if should build the array 5 companies in future
-        // Need to find a new way to loop method so that it stays a maximum of 5 companies in advance
-        const difference = companiesLength - currentCompany;
-        if (difference < 5) {
+
+        if ((companiesLength - currentCompany) < 5) {
+          this.setState(prevState => ({
+            companies: prevState.companies.concat(res.data.word)
+          }));
           return this.getCompany();
         }
         return null;
@@ -62,9 +61,7 @@ export default class App extends Component {
 
   // Should I be combining the nextCompany and backCompany methods
   nextCompany = () => {
-    if (this.state.currentCompany > 0) {
-      this.setState({ disableBackBtn: false})
-    }
+    this.setState({ disableBackBtn: false})
     this.setState(prevState => ({
       currentCompany: (prevState.currentCompany + 1)
     }));
@@ -111,9 +108,23 @@ export default class App extends Component {
                 onClick={this.nextCompany} /> }
           </div>
 
-          <div className="row">
+          { showStart &&
+          <section className="container">
+            <p className="lead text-white">5 - 10 RULE:</p>
+            <p className="text-white">Great companies throughout history have had 5 to 10 letters in their name, had at least one hard consonant, and many had a repeating letter.</p>
+            <p className="text-muted text-white"><strong>For Example:</strong> Mattel, Hasbro, Google, Yahoo, CitiBank, Starbucks, Honda, Apple, Exxon, Mobil, Cisco and Verizon.</p>
+          </section> }
 
-          </div>
+            <footer className="container footer mx-auto">
+              <div className="row">
+                <div className="col-md-6">
+                  <p className="lead text-white">Business Name Generator</p>
+                </div>
+                {/* <div className="col-md-6 text-right">
+                  <a href="https://github.com/tmirmota/name-generator" className="text-white"><p className="text-white">Check this project out on <i className="fa fa-github"></i></p></a>
+                </div> */}
+              </div>
+            </footer>
 
         </div>
       </MuiThemeProvider>
