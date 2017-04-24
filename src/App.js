@@ -15,14 +15,14 @@ import Company from './components/Company';
 // APIs
 const API_Words_KEY = 'pn0s9I9O97mshDvk4H8RPynL7S8Hp1vFyebjsn7KY9nUC8A1am'; // Words
 const wordsUrl = 'https://wordsapiv1.p.mashape.com/words/?lettersMin=5&lettersMax=10&letterPattern=[b,c,d,f,g,h,j,k,l,m,n,p,q,r,s,t,v,x,z]&random=true'; // Words
-const API_Edgar_KEY = '2p2rpauuyhpukw7624keg3n7'; // Edgar
-const edgarUrl = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_Edgar_KEY; // Edgar
+// const API_Edgar_KEY = '2p2rpauuyhpukw7624keg3n7'; // Edgar
+// const edgarUrl = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_Edgar_KEY; // Edgar
+
 
 export default class App extends Component {
   state = {
     currentCompany: 0,
-    companies: [ { word: "Press Start App" } ],
-    filterData: [],
+    companies: [],
 
     // Buttons
     showStart: true,
@@ -34,6 +34,8 @@ export default class App extends Component {
     this.getCompany();
   }
 
+
+
   getCompany() {
     // Words API
     axios.get(wordsUrl, {
@@ -43,11 +45,11 @@ export default class App extends Component {
         this.setState(prevState => ({
           companies: prevState.companies.concat(res.data)
         }));
-        const companies = this.state.companies.length;
+        const companiesLength = this.state.companies.length;
         const currentCompany = this.state.currentCompany;
         // The if should build the array 5 companies in future
         // Need to find a new way to loop method so that it stays a maximum of 5 companies in advance
-        if ((companies - currentCompany) < 5) {
+        if ((companiesLength - currentCompany) < 5) {
           return this.getCompany();
         }
       });
@@ -65,7 +67,7 @@ export default class App extends Component {
   }
 
   backCompany = () => {
-    if (this.state.currentCompany === 2) {
+    if (this.state.currentCompany === 1) {
       this.setState({disableBackBtn: true})
     }
     this.setState(prevState => ({
@@ -73,32 +75,40 @@ export default class App extends Component {
     }));
   }
 
+  startApp = () => {
+    this.nextCompany();
+    this.setState({ showStart: false });
+  }
+
   render() {
-    const company = this.state.companies[this.state.currentCompany];
+    const { disableBackBtn, showStart, currentCompany } = this.state;
+    const company = this.state.companies[currentCompany];
     return (
       <MuiThemeProvider>
-        <div className="wrapper">
-          <div className="row text-center">
-            <Company company={company} />
-          </div>
-
-          <div className="row text-center cmd-buttons">
-            { this.state.showStart &&
+        <div className="container">
+          <div className="company-component mx-auto mt-5 text-center">
+            { showStart &&
               <RaisedButton label="Start App" onClick={this.startApp} /> }
-            { !this.state.showStart &&
-              <RaisedButton label="Back" onClick={this.backCompany} disabled={this.state.disableBackBtn} /> }
-            { !this.state.showStart &&
-              <RaisedButton label="Next" onClick={this.nextCompany} /> }
+              <div className="mb-5">
+              { !showStart &&
+                <Company company={company} /> }
+              </div>
+            { !showStart &&
+              <RaisedButton
+                label="Back"
+                className="controller-buttons"
+                onClick={this.backCompany}
+                disabled={disableBackBtn} /> }
+            { !showStart &&
+              <RaisedButton
+                label="Next"
+                className="controller-buttons"
+                onClick={this.nextCompany} /> }
           </div>
 
         </div>
       </MuiThemeProvider>
     );
-  }
-
-  startApp = () => {
-    this.nextCompany();
-    this.setState({ showStart: false });
   }
 
   // // Edgar API
