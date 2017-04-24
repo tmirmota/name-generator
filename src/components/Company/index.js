@@ -7,13 +7,13 @@ const CompanyProfile = ({company}) => {
   if (!company) {
     return (
       <div className="company-profile">
-        <h1>loading...</h1>
+        <i className="fa fa-spinner fa-spin fa-3x fa-fw text-white" aria-hidden="true"></i>
       </div>
     );
   }
   return (
     <div className='company-profile'>
-      <CompanyName companyName={company.word} />
+      <CompanyName companyName={company} />
     </div>
   );
 }

@@ -1,5 +1,11 @@
+.background-gradient {
+  background: linear-gradient(to bottom right, #36D1DC, #5B86E5);
+  height: 100vh;
+}
+
 .company-component {
   max-width: 400px;
+  padding-top: 9rem;
 }
 
 .controller-buttons {

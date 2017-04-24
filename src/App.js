@@ -42,16 +42,21 @@ export default class App extends Component {
       Host: 'https://wordsapiv1.p.mashape.com/'
     })
       .then(res => {
-        this.setState(prevState => ({
-          companies: prevState.companies.concat(res.data)
-        }));
-        const companiesLength = this.state.companies.length;
-        const currentCompany = this.state.currentCompany;
-        // The if should build the array 5 companies in future
-        // Need to find a new way to loop method so that it stays a maximum of 5 companies in advance
-        if ((companiesLength - currentCompany) < 5) {
+        if (res.data.word.indexOf(" ") >= 0) {
           return this.getCompany();
         }
+        this.setState(prevState => ({
+          companies: prevState.companies.concat(res.data.word)
+        }));
+        const companiesLength = this.state.companies.length;
+        const { currentCompany } = this.state;
+        // The if should build the array 5 companies in future
+        // Need to find a new way to loop method so that it stays a maximum of 5 companies in advance
+        const difference = companiesLength - currentCompany;
+        if (difference < 5) {
+          return this.getCompany();
+        }
+        return null;
       });
   }
 
@@ -76,7 +81,7 @@ export default class App extends Component {
   }
 
   startApp = () => {
-    this.nextCompany();
+    this.getCompany();
     this.setState({ showStart: false });
   }
 
@@ -85,10 +90,10 @@ export default class App extends Component {
     const company = this.state.companies[currentCompany];
     return (
       <MuiThemeProvider>
-        <div className="container">
-          <div className="company-component mx-auto mt-5 text-center">
+        <div className="container-fluid background-gradient">
+          <div className="company-component mx-auto text-center">
             { showStart &&
-              <RaisedButton label="Start App" onClick={this.startApp} /> }
+              <RaisedButton label="Start Search" onClick={this.startApp} /> }
               <div className="mb-5">
               { !showStart &&
                 <Company company={company} /> }
@@ -104,6 +109,10 @@ export default class App extends Component {
                 label="Next"
                 className="controller-buttons"
                 onClick={this.nextCompany} /> }
+          </div>
+
+          <div className="row">
+
           </div>
 
         </div>
