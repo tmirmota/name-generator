@@ -1,51 +1,39 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
-import { bounce } from 'react-animations';
-import Radium from 'radium';
+
 // Styles
-import './css/App.css';
+import './App.css';
+
 // Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+
 // Components
-import FilterForm from './components/FilterForm';
-import FiltersTable from './components/FiltersTable';
-import CompanyProfile from './components/CompanyProfile';
+import Company from './components/Company';
+
 // APIs
 const API_Words_KEY = 'pn0s9I9O97mshDvk4H8RPynL7S8Hp1vFyebjsn7KY9nUC8A1am'; // Words
 const wordsUrl = 'https://wordsapiv1.p.mashape.com/words/?lettersMin=5&lettersMax=10&letterPattern=[b,c,d,f,g,h,j,k,l,m,n,p,q,r,s,t,v,x,z]&random=true'; // Words
 const API_Edgar_KEY = '2p2rpauuyhpukw7624keg3n7'; // Edgar
 const edgarUrl = 'http://edgaronline.api.mashery.com/v2/companies.json?primarysymbols=msft&appkey=' + API_Edgar_KEY; // Edgar
 
-// Styles
-const styles = {
-  bounce: {
-    margin: 12,
-    animation: 'x 1s',
-    animationName: Radium.keyframes(bounce, 'bounce')
-  }
-}
-
-
 export default class App extends Component {
-  constructor() {
-    super();
+  state = {
+    currentCompany: 0,
+    companies: [ { word: "Press Start App" } ],
+    filterData: [],
+
+    // Buttons
+    showStart: true,
+    disableBackBtn: true
+    }
+
+  componentWillMount() {
     axios.defaults.headers.common['X-Mashape-Authorization'] = API_Words_KEY; // Words API Authentication
     this.getCompany();
-    this.state = {
-      currentCompany: 0,
-      companies: [
-        { word: "Press Start App" }
-      ],
-      filterData: [],
-
-      // Buttons
-      showStart: true,
-      disableBackBtn: true
-
-    }
   }
+
   getCompany() {
     // Words API
     axios.get(wordsUrl, {
@@ -91,49 +79,38 @@ export default class App extends Component {
       <MuiThemeProvider>
         <div className="wrapper">
           <div className="row text-center">
-            <CompanyProfile company={company} />
+            <Company company={company} />
           </div>
 
           <div className="row text-center cmd-buttons">
             { this.state.showStart &&
-              <RaisedButton label="Start App" onClick={this.startApp} frameClass={styles.bounce} /> }
+              <RaisedButton label="Start App" onClick={this.startApp} /> }
             { !this.state.showStart &&
-              <RaisedButton label="Back" onClick={this.backCompany} disabled={this.state.disableBackBtn} style={styles.bounce} /> }
+              <RaisedButton label="Back" onClick={this.backCompany} disabled={this.state.disableBackBtn} /> }
             { !this.state.showStart &&
-              <RaisedButton label="Next" onClick={this.nextCompany} style={styles.bounce} /> }
+              <RaisedButton label="Next" onClick={this.nextCompany} /> }
           </div>
-
-
-          <FilterForm sendFormData={this.formData} />
-          <FiltersTable data={this.state.filterData} />
-
 
         </div>
       </MuiThemeProvider>
     );
   }
 
-  enableButton = () => { this.setState({ newButton: true }); }
-  disableButton = () => { this.setState({ newButton: false }); }
-
   startApp = () => {
     this.nextCompany();
     this.setState({ showStart: false });
   }
-  formData = (newData) => {
-    this.setState(prevState => ({
-      filterData: prevState.filterData.concat(newData)
-    }));
-  }
-  componentWillMount() {
-    // Edgar API
-    axios.get(edgarUrl, {
-      ApplicationKey: {API_Edgar_KEY},
-      Host: 'edgaronline.api.mashery.com',
-      Accept: 'application/json'
-    })
-      .then(res => {
-        console.log(res);
-      });
-  }
+
+  // // Edgar API
+  // componentWillMount() {
+  //
+  //   axios.get(edgarUrl, {
+  //     ApplicationKey: {API_Edgar_KEY},
+  //     Host: 'edgaronline.api.mashery.com',
+  //     Accept: 'application/json'
+  //   })
+  //     .then(res => {
+  //       console.log(res);
+  //     });
+  // }
 }
