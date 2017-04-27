@@ -93,20 +93,20 @@ export default class App extends Component {
               <RaisedButton label="Start Search" onClick={this.startApp} /> }
               <div className="mb-5">
               { !showStart &&
-                <Company company={company} /> }
+                <div>
+                  <Company company={company} />
+                  <RaisedButton
+                    label="Back"
+                    className="controller-buttons"
+                    onClick={this.backCompany}
+                    disabled={disableBackBtn} />
+                  <RaisedButton
+                    label="Next"
+                    className="controller-buttons"
+                    onClick={this.nextCompany} />
+                </div> }
               </div>
-            { !showStart &&
-              <RaisedButton
-                label="Back"
-                className="controller-buttons"
-                onClick={this.backCompany}
-                disabled={disableBackBtn} /> }
-            { !showStart &&
-              <RaisedButton
-                label="Next"
-                className="controller-buttons"
-                onClick={this.nextCompany} /> }
-          </div>
+            </div>
 
           { showStart &&
           <section className="container">
