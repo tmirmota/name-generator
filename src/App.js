@@ -26,6 +26,7 @@ export default class App extends Component {
 
     // Buttons
     showStart: true,
+    showTip: true,
     disableBackBtn: true
     }
 
@@ -79,11 +80,11 @@ export default class App extends Component {
 
   startApp = () => {
     this.getCompany();
-    this.setState({ showStart: false });
+    this.setState({ showStart: false, showTip: false });
   }
 
   render() {
-    const { disableBackBtn, showStart, currentCompany } = this.state;
+    const { disableBackBtn, showStart, showTip, currentCompany } = this.state;
     const company = this.state.companies[currentCompany];
     return (
       <MuiThemeProvider>
@@ -108,12 +109,16 @@ export default class App extends Component {
               </div>
             </div>
 
-          { showStart &&
-          <section className="container">
-            <p className="lead text-white">5 - 10 RULE:</p>
-            <p className="text-white">Great companies throughout history have had 5 to 10 letters in their name, had at least one hard consonant, and many had a repeating letter.</p>
-            <p className="text-muted text-white"><strong>For Example:</strong> Mattel, Hasbro, Google, Yahoo, CitiBank, Starbucks, Honda, Apple, Exxon, Mobil, Cisco and Verizon.</p>
-          </section> }
+            <section className="container">
+          { showTip ?
+            <div>
+              {!showStart && <RaisedButton label="Hide Tip" onClick={() => this.setState({ showTip: false })} /> }
+              <p className="lead text-white mt-2">5 - 10 RULE:</p>
+              <p className="text-white">Great companies throughout history have had 5 to 10 letters in their name, had at least one hard consonant, and many had a repeating letter.</p>
+              <p className="text-muted text-white"><strong>For Example:</strong> Mattel, Hasbro, Google, Yahoo, CitiBank, Starbucks, Honda, Apple, Exxon, Mobil, Cisco and Verizon.</p>
+            </div> :
+            <RaisedButton label="Show Tip" onClick={() => this.setState({ showTip: true })} />
+          } </section>
 
             <footer className="container footer mx-auto">
               <div className="row">
