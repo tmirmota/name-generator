@@ -7,10 +7,13 @@ import './App.css';
 
 // Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
 
 // Components
 import Company from './components/Company';
+import { Controllers } from './components/Controllers';
+import { SavedList } from './components/SavedList';
+import { TipInfo } from './components/ToolTip/TipInfo';
+
 
 // APIs
 const API_Words_KEY = 'pn0s9I9O97mshDvk4H8RPynL7S8Hp1vFyebjsn7KY9nUC8A1am'; // Words
@@ -23,6 +26,7 @@ export default class App extends Component {
   state = {
     currentCompany: 0,
     companies: [],
+    savedCompanies: [],
 
     // Buttons
     showStart: true,
@@ -35,7 +39,10 @@ export default class App extends Component {
     this.getCompany();
   }
 
-
+  startApp = () => {
+    this.getCompany();
+    this.setState({ showStart: false, showTip: false });
+  }
 
   getCompany() {
     // Words API
@@ -62,7 +69,7 @@ export default class App extends Component {
 
   // Should I be combining the nextCompany and backCompany methods
   nextCompany = () => {
-    this.setState({ disableBackBtn: false})
+    this.setState({ disableBackBtn: false })
     this.setState(prevState => ({
       currentCompany: (prevState.currentCompany + 1)
     }));
@@ -78,47 +85,54 @@ export default class App extends Component {
     }));
   }
 
-  startApp = () => {
-    this.getCompany();
-    this.setState({ showStart: false, showTip: false });
+  saveCompany = () => {
+    const { currentCompany, companies } = this.state;
+    const company = companies[currentCompany];
+    this.setState(prevState => ({
+      savedCompanies: prevState.savedCompanies.concat(company)
+    }));
   }
 
+  removeCompany = (company) => {
+    const { savedCompanies } = this.state;
+    const newSavedCompanies = _.pull(savedCompanies, company);
+    this.setState({ savedCompanies: newSavedCompanies });
+  }
+
+  toggleTip = () => {
+    const { showTip } = this.state;
+    this.setState({ showTip: !showTip })
+  }
+
+
   render() {
-    const { disableBackBtn, showStart, showTip, currentCompany } = this.state;
-    const company = this.state.companies[currentCompany];
+    const { disableBackBtn, showStart, showTip, currentCompany, companies, savedCompanies } = this.state;
+    const company = companies[currentCompany];
+    const saved = _.indexOf(savedCompanies, company) >= 0;
     return (
       <MuiThemeProvider>
         <div className="container-fluid background-gradient">
+
           <div className="company-component mx-auto text-center">
-            { showStart &&
-              <RaisedButton label="Start Search" onClick={this.startApp} /> }
               <div className="mb-5">
-              { !showStart &&
-                <div>
-                  <Company company={company} />
-                  <RaisedButton
-                    label="Back"
-                    className="controller-buttons"
-                    onClick={this.backCompany}
-                    disabled={disableBackBtn} />
-                  <RaisedButton
-                    label="Next"
-                    className="controller-buttons"
-                    onClick={this.nextCompany} />
-                </div> }
+                  { !showStart && <Company company={company} /> }
+                  <Controllers
+                    showStart={showStart}
+                    startApp={this.startApp}
+                    backCompany={this.backCompany}
+                    nextCompany={this.nextCompany}
+                    disableBackBtn={disableBackBtn}
+                    saveCompany={this.saveCompany}
+                    saved={saved}  />
               </div>
             </div>
 
-            <section className="container">
-          { showTip ?
-            <div>
-              {!showStart && <RaisedButton label="Hide Tip" onClick={() => this.setState({ showTip: false })} /> }
-              <p className="lead text-white mt-2">5 - 10 RULE:</p>
-              <p className="text-white">Great companies throughout history have had 5 to 10 letters in their name, had at least one hard consonant, and many had a repeating letter.</p>
-              <p className="text-muted text-white"><strong>For Example:</strong> Mattel, Hasbro, Google, Yahoo, CitiBank, Starbucks, Honda, Apple, Exxon, Mobil, Cisco and Verizon.</p>
-            </div> :
-            <RaisedButton label="Show Tip" onClick={() => this.setState({ showTip: true })} />
-          } </section>
+            <SavedList savedCompanies={savedCompanies} removeCompany={this.removeCompany} />
+
+            <TipInfo
+              showTip={showTip}
+              showStart={showStart}
+              toggleTip={this.toggleTip} />
 
             <footer className="container footer mx-auto">
               <div className="row">
