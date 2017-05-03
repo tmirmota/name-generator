@@ -13,6 +13,7 @@ import Company from './components/Company';
 import { Controllers } from './components/Controllers';
 import { SavedList } from './components/SavedList';
 import { TipInfo } from './components/ToolTip/TipInfo';
+import { TipToggle } from './components/ToolTip/TipToggle';
 
 
 // APIs
@@ -127,22 +128,28 @@ export default class App extends Component {
               </div>
             </div>
 
-            <SavedList savedCompanies={savedCompanies} removeCompany={this.removeCompany} />
+            <SavedList
+              savedCompanies={savedCompanies}
+              removeCompany={this.removeCompany} />
 
             <TipInfo
               showTip={showTip}
               showStart={showStart}
               toggleTip={this.toggleTip} />
 
-            <footer className="container footer mx-auto">
-              <div className="row">
-                <div className="col-md-6">
-                  <p className="lead text-white">Business Name Generator</p>
-                </div>
-                {/* <div className="col-md-6 text-right">
-                  <a href="https://github.com/tmirmota/name-generator" className="text-white"><p className="text-white">Check this project out on <i className="fa fa-github"></i></p></a>
-                </div> */}
+            <footer className="row">
+              <div className="col">
+                <p className="lead text-white">Business Name Generator</p>
               </div>
+              <div className="col text-right">
+                <TipToggle
+                  showStart={showStart}
+                  showTip={showTip}
+                  toggleTip={this.toggleTip}  />
+              </div>
+              {/* <div className="col-md-6 text-right">
+                <a href="https://github.com/tmirmota/name-generator" className="text-white"><p className="text-white">Check this project out on <i className="fa fa-github"></i></p></a>
+              </div> */}
             </footer>
 
         </div>

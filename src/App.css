@@ -1,6 +1,7 @@
 .background-gradient {
   background: linear-gradient(to bottom right, #36D1DC, #5B86E5);
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
 }
 
 .company-component {
@@ -12,7 +13,13 @@
   margin: 1rem;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
+@media (max-height: 100vh) {
+  footer {
+    position: absolute !important;
+    bottom: 0;
+  }
+}
+
+footer {
+  width: 100%;
 }

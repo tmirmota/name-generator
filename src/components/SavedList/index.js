@@ -11,8 +11,12 @@ const style = {
 }
 
 export const SavedList = ({ savedCompanies, removeCompany }) => {
+  const noSavedCompanies = savedCompanies.length <= 0;
+  if (noSavedCompanies) {
+    return null;
+  }
   return (
-    <section className="container">
+    <section className="container mb-5">
       <div className="row">
         <div className="col-md-6 mx-auto">
           <List>

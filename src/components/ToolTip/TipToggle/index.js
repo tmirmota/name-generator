@@ -1,9 +1,20 @@
 import React from 'react';
 
-export const TipToggle = () => {
-  return (
-    <div>
+// Material UI Components
+import IconButton from 'material-ui/IconButton';
+import Help from 'material-ui/svg-icons/action/help';
+import HelpOutline from 'material-ui/svg-icons/action/help-outline';
 
-    </div>
-  );
+export const TipToggle = ({ showStart, showTip, toggleTip }) => {
+    return (
+      <div>
+        { !showStart &&
+          <IconButton
+            onClick={toggleTip}
+            tooltip="Tip"
+            tooltipPosition="top-center">
+            { showTip ? <Help className="text-white" /> : <HelpOutline className="text-white"/> }
+          </IconButton> }
+      </div>
+    );
 }
