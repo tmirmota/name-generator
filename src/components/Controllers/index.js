@@ -13,15 +13,15 @@ export const Controllers = ({ showStart, startApp, backCompany, nextCompany, dis
         <div>
           <RaisedButton
             label="Back"
-            className="controller-buttons"
+            className="controller-buttons align-middle"
             onClick={backCompany}
             disabled={disableBackBtn} />
-          <FloatingActionButton onClick={saveCompany} disabled={saved}>
+          <FloatingActionButton onClick={saveCompany} className="align-middle" disabled={saved}>
             <ContentAdd />
           </FloatingActionButton>
           <RaisedButton
             label="Next"
-            className="controller-buttons"
+            className="controller-buttons align-middle"
             onClick={nextCompany} />
         </div>
       }
